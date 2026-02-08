@@ -1,0 +1,52 @@
+/*
+Theme Name: BoldMCQs Pro
+Theme URI: https://example.com/boldmcqspro
+Author: Your Name
+Author URI: https://example.com
+Description: A modern MCQ quiz platform theme for WordPress.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: boldmcqspro
+Tags: quiz, education, responsive, tailwindcss
+*/
+
+/* Add your custom styles below */
+
+/* Search functionality styles */
+.searching {
+    border-color: #3B82F6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+.searching::placeholder {
+    color: #3B82F6 !important;
+}
+
+/* Search form focus states */
+form[role="search"] input:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Search button hover effects */
+form[role="search"] button[type="submit"]:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Search results highlighting */
+mark {
+    background-color: #FEF3C7;
+    color: #92400E;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.dark mark {
+    background-color: #78350F;
+    color: #FEF3C7;
+}
+
+@import url("https://cdn.tailwindcss.com");
