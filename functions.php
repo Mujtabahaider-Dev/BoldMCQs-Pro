@@ -8,6 +8,7 @@ require_once get_template_directory() . '/inc/nav-menus.php';
 require_once get_template_directory() . '/inc/acf-fields.php';
 require_once get_template_directory() . '/inc/typography.php';
 require_once get_template_directory() . '/inc/seo.php';
+require_once get_template_directory() . '/inc/header-buttons.php'; // Header button helpers
 
 // Admin panel setup
 if (is_admin()) {

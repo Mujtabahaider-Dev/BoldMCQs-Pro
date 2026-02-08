@@ -2,11 +2,30 @@
 // Theme Customizer Settings
 function boldmcqspro_customize_register($wp_customize) {
     
-    // Brand/Logo Section
+    // === HEADER BRANDING & LOGO SECTION ===
     $wp_customize->add_section('boldmcqspro_branding', array(
-        'title'       => __('Site Branding', 'boldmcqspro'),
-        'description' => __('Customize your site logo and branding', 'boldmcqspro'),
+        'title'       => __('🎨 Header Branding & Logo', 'boldmcqspro'),
+        'description' => __('Control your site logo, text display, and sizing', 'boldmcqspro'),
         'priority'    => 30,
+    ));
+
+    // Logo/Text Display Mode
+    $wp_customize->add_setting('boldmcqspro_branding_mode', array(
+        'default'           => 'both',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_branding_mode', array(
+        'label'       => __('🏷️ Display Mode', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_branding',
+        'type'        => 'radio',
+        'choices'     => array(
+            'logo'  => __('Logo Only', 'boldmcqspro'),
+            'text'  => __('Text Only', 'boldmcqspro'),
+            'both'  => __('Logo + Text', 'boldmcqspro'),
+        ),
+        'description' => __('Choose what to display in your header', 'boldmcqspro'),
     ));
 
     // Logo Upload
@@ -17,13 +36,67 @@ function boldmcqspro_customize_register($wp_customize) {
     ));
 
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'boldmcqspro_logo', array(
-        'label'       => __('Upload Logo', 'boldmcqspro'),
+        'label'       => __('📷 Upload Logo', 'boldmcqspro'),
         'section'     => 'boldmcqspro_branding',
         'settings'    => 'boldmcqspro_logo',
-        'description' => __('Upload your site logo. Recommended size: 200x60px', 'boldmcqspro'),
+        'description' => __('Upload your site logo. Recommended: 200x60px PNG with transparency', 'boldmcqspro'),
     )));
 
-    // Site Title Display
+    // Logo Width
+    $wp_customize->add_setting('boldmcqspro_logo_width', array(
+        'default'           => 150,
+        'sanitize_callback' => 'absint',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_logo_width', array(
+        'label'       => __('📏 Logo Width (px)', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_branding',
+        'type'        => 'range',
+        'input_attrs' => array(
+            'min'  => 50,
+            'max'  => 500,
+            'step' => 10,
+        ),
+        'description' => __('Adjust logo width in pixels', 'boldmcqspro'),
+    ));
+
+    // Logo Height Mode
+    $wp_customize->add_setting('boldmcqspro_logo_height_mode', array(
+        'default'           => 'auto',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_logo_height_mode', array(
+        'label'   => __('📐 Logo Height', 'boldmcqspro'),
+        'section' => 'boldmcqspro_branding',
+        'type'    => 'radio',
+        'choices' => array(
+            'auto'   => __('Auto (Maintain Aspect Ratio)', 'boldmcqspro'),
+            'custom' => __('Custom Height', 'boldmcqspro'),
+        ),
+    ));
+
+    // Logo Custom Height
+    $wp_customize->add_setting('boldmcqspro_logo_height', array(
+        'default'           => 60,
+        'sanitize_callback' => 'absint',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_logo_height', array(
+        'label'       => __('Custom Logo Height (px)', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_branding',
+        'type'        => 'range',
+        'input_attrs' => array(
+            'min'  => 30,
+            'max'  => 200,
+            'step' => 10,
+        ),
+    ));
+
+    // Site Title Display (keep for backward compatibility)
     $wp_customize->add_setting('boldmcqspro_show_site_title', array(
         'default'           => true,
         'sanitize_callback' => 'wp_validate_boolean',
@@ -31,42 +104,432 @@ function boldmcqspro_customize_register($wp_customize) {
     ));
 
     $wp_customize->add_control('boldmcqspro_show_site_title', array(
-        'label'   => __('Show Site Title', 'boldmcqspro'),
+        'label'   => __('✓ Show Site Title', 'boldmcqspro'),
         'section' => 'boldmcqspro_branding',
         'type'    => 'checkbox',
     ));
 
-    // Header Section
+    // Site Title Font Size
+    $wp_customize->add_setting('boldmcqspro_site_title_size', array(
+        'default'           => 20,
+        'sanitize_callback' => 'absint',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_site_title_size', array(
+        'label'       => __('🔤 Site Title Font Size (px)', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_branding',
+        'type'        => 'range',
+        'input_attrs' => array(
+            'min'  => 14,
+            'max'  => 48,
+            'step' => 2,
+        ),
+    ));
+
+    // Site Title Transform
+    $wp_customize->add_setting('boldmcqspro_site_title_transform', array(
+        'default'           => 'none',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_site_title_transform', array(
+        'label'   => __('🔠 Site Title Text Transform', 'boldmcqspro'),
+        'section' => 'boldmcqspro_branding',
+        'type'    => 'select',
+        'choices' => array(
+            'none'       => __('None', 'boldmcqspro'),
+            'uppercase'  => __('UPPERCASE', 'boldmcqspro'),
+            'lowercase'  => __('lowercase', 'boldmcqspro'),
+            'capitalize' => __('Capitalize', 'boldmcqspro'),
+        ),
+    ));
+
+    // === HEADER BUTTONS SECTION ===
     $wp_customize->add_section('boldmcqspro_header', array(
-        'title'       => __('Header Settings', 'boldmcqspro'),
-        'description' => __('Customize your header area', 'boldmcqspro'),
+        'title'       => __('🔘 Header Buttons', 'boldmcqspro'),
+        'description' => __('Customize up to 2 call-to-action buttons and auth buttons', 'boldmcqspro'),
         'priority'    => 31,
     ));
 
-    // Header Button Text
-    $wp_customize->add_setting('boldmcqspro_header_button_text', array(
+    // === BUTTON 1 (PRIMARY CTA) ===
+    
+    // Button 1 Show/Hide
+    $wp_customize->add_setting('boldmcqspro_button1_show', array(
+        'default'           => false,
+        'sanitize_callback' => 'wp_validate_boolean',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button1_show', array(
+        'label'       => __('Enable Button 1 (Primary)', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_header',
+        'type'        => 'checkbox',
+        'description' => __('Show the first call-to-action button', 'boldmcqspro'),
+    ));
+
+    // Button 1 Text
+    $wp_customize->add_setting('boldmcqspro_button1_text', array(
         'default'           => 'Get Started',
         'sanitize_callback' => 'sanitize_text_field',
         'transport'         => 'refresh',
     ));
 
-    $wp_customize->add_control('boldmcqspro_header_button_text', array(
-        'label'   => __('Header Button Text', 'boldmcqspro'),
+    $wp_customize->add_control('boldmcqspro_button1_text', array(
+        'label'   => __('Button 1 Text', 'boldmcqspro'),
         'section' => 'boldmcqspro_header',
         'type'    => 'text',
     ));
 
-    // Header Button Link
-    $wp_customize->add_setting('boldmcqspro_header_button_link', array(
+    // Button 1 URL
+    $wp_customize->add_setting('boldmcqspro_button1_url', array(
         'default'           => '#',
         'sanitize_callback' => 'esc_url_raw',
         'transport'         => 'refresh',
     ));
 
-    $wp_customize->add_control('boldmcqspro_header_button_link', array(
-        'label'   => __('Header Button Link', 'boldmcqspro'),
+    $wp_customize->add_control('boldmcqspro_button1_url', array(
+        'label'   => __('Button 1 URL', 'boldmcqspro'),
         'section' => 'boldmcqspro_header',
         'type'    => 'url',
+    ));
+
+    // Button 1 Background Color
+    $wp_customize->add_setting('boldmcqspro_button1_bg_color', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_button1_bg_color', array(
+        'label'       => __('Button 1 Background', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_header',
+        'description' => __('Leave empty to use Primary color', 'boldmcqspro'),
+    )));
+
+    // Button 1 Text Color
+    $wp_customize->add_setting('boldmcqspro_button1_text_color', array(
+        'default'           => '#FFFFFF',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_button1_text_color', array(
+        'label'   => __('Button 1 Text Color', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+    )));
+
+    // Button 1 Style
+    $wp_customize->add_setting('boldmcqspro_button1_style', array(
+        'default'           => 'solid',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button1_style', array(
+        'label'   => __('Button 1 Style', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'select',
+        'choices' => array(
+            'solid'   => __('Solid', 'boldmcqspro'),
+            'outline' => __('Outline', 'boldmcqspro'),
+            'ghost'   => __('Ghost (No Border)', 'boldmcqspro'),
+        ),
+    ));
+
+    // Button 1 Size
+    $wp_customize->add_setting('boldmcqspro_button1_size', array(
+        'default'           => 'medium',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button1_size', array(
+        'label'   => __('Button 1 Size', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'select',
+        'choices' => array(
+            'small'  => __('Small', 'boldmcqspro'),
+            'medium' => __('Medium', 'boldmcqspro'),
+            'large'  => __('Large', 'boldmcqspro'),
+        ),
+    ));
+
+    // === BUTTON 2 (SECONDARY CTA) ===
+    
+    // Button 2 Show/Hide
+    $wp_customize->add_setting('boldmcqspro_button2_show', array(
+        'default'           => false,
+        'sanitize_callback' => 'wp_validate_boolean',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button2_show', array(
+        'label'       => __('Enable Button 2 (Secondary)', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_header',
+        'type'        => 'checkbox',
+        'description' => __('Show the second call-to-action button', 'boldmcqspro'),
+    ));
+
+    // Button 2 Text
+    $wp_customize->add_setting('boldmcqspro_button2_text', array(
+        'default'           => 'Learn More',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button2_text', array(
+        'label'   => __('Button 2 Text', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'text',
+    ));
+
+    // Button 2 URL
+    $wp_customize->add_setting('boldmcqspro_button2_url', array(
+        'default'           => '#',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button2_url', array(
+        'label'   => __('Button 2 URL', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'url',
+    ));
+
+    // Button 2 Background Color
+    $wp_customize->add_setting('boldmcqspro_button2_bg_color', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_button2_bg_color', array(
+        'label'       => __('Button 2 Background', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_header',
+        'description' => __('Leave empty to use Secondary color', 'boldmcqspro'),
+    )));
+
+    // Button 2 Text Color
+    $wp_customize->add_setting('boldmcqspro_button2_text_color', array(
+        'default'           => '#FFFFFF',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_button2_text_color', array(
+        'label'   => __('Button 2 Text Color', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+    )));
+
+    // Button 2 Style
+    $wp_customize->add_setting('boldmcqspro_button2_style', array(
+        'default'           => 'outline',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button2_style', array(
+        'label'   => __('Button 2 Style', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'select',
+        'choices' => array(
+            'solid'   => __('Solid', 'boldmcqspro'),
+            'outline' => __('Outline', 'boldmcqspro'),
+            'ghost'   => __('Ghost (No Border)', 'boldmcqspro'),
+        ),
+    ));
+
+    // Button 2 Size
+    $wp_customize->add_setting('boldmcqspro_button2_size', array(
+        'default'           => 'medium',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button2_size', array(
+        'label'   => __('Button 2 Size', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'select',
+        'choices' => array(
+            'small'  => __('Small', 'boldmcqspro'),
+            'medium' => __('Medium', 'boldmcqspro'),
+            'large'  => __('Large', 'boldmcqspro'),
+        ),
+    ));
+
+    // === BUTTON 3 (TERTIARY/OPTIONAL) ===
+    
+    // Button 3 Show/Hide
+    $wp_customize->add_setting('boldmcqspro_button3_show', array(
+        'default'           => false,
+        'sanitize_callback' => 'wp_validate_boolean',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button3_show', array(
+        'label'       => __('Enable Button 3 (Tertiary)', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_header',
+        'type'        => 'checkbox',
+        'description' => __('Show the third call-to-action button', 'boldmcqspro'),
+    ));
+
+    // Button 3 Text
+    $wp_customize->add_setting('boldmcqspro_button3_text', array(
+        'default'           => 'Contact Us',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button3_text', array(
+        'label'   => __('Button 3 Text', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'text',
+    ));
+
+    // Button 3 URL
+    $wp_customize->add_setting('boldmcqspro_button3_url', array(
+        'default'           => '#',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button3_url', array(
+        'label'   => __('Button 3 URL', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'url',
+    ));
+
+    // Button 3 Background Color
+    $wp_customize->add_setting('boldmcqspro_button3_bg_color', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_button3_bg_color', array(
+        'label'       => __('Button 3 Background', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_header',
+        'description' => __('Leave empty to use gray color', 'boldmcqspro'),
+    )));
+
+    // Button 3 Text Color
+    $wp_customize->add_setting('boldmcqspro_button3_text_color', array(
+        'default'           => '#FFFFFF',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_button3_text_color', array(
+        'label'   => __('Button 3 Text Color', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+    )));
+
+    // Button 3 Style
+    $wp_customize->add_setting('boldmcqspro_button3_style', array(
+        'default'           => 'ghost',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button3_style', array(
+        'label'   => __('Button 3 Style', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'select',
+        'choices' => array(
+            'solid'   => __('Solid', 'boldmcqspro'),
+            'outline' => __('Outline', 'boldmcqspro'),
+            'ghost'   => __('Ghost (No Border)', 'boldmcqspro'),
+        ),
+    ));
+
+    // Button 3 Size
+    $wp_customize->add_setting('boldmcqspro_button3_size', array(
+        'default'           => 'medium',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_button3_size', array(
+        'label'   => __('📎 Button 3 Size', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'select',
+        'choices' => array(
+            'small'  => __('Small', 'boldmcqspro'),
+            'medium' => __('Medium', 'boldmcqspro'),
+            'large'  => __('Large', 'boldmcqspro'),
+        ),
+    ));
+
+    // === AUTH BUTTONS CUSTOMIZATION ===
+    
+    // Custom Login Button Text
+    $wp_customize->add_setting('boldmcqspro_login_text', array(
+        'default'           => 'Login',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_login_text', array(
+        'label'   => __('🔑 Login Button Text', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'text',
+    ));
+
+    // Custom Register Button Text
+    $wp_customize->add_setting('boldmcqspro_register_text', array(
+        'default'           => 'Register',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_register_text', array(
+        'label'   => __('Register Button Text', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'text',
+    ));
+
+    // Custom Logout Button Text
+    $wp_customize->add_setting('boldmcqspro_logout_text', array(
+        'default'           => 'Logout',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_logout_text', array(
+        'label'   => __('🚪 Logout Button Text', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'text',
+    ));
+
+    // Custom Dashboard Button Text
+    $wp_customize->add_setting('boldmcqspro_dashboard_text', array(
+        'default'           => 'Dashboard',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_dashboard_text', array(
+        'label'   => __('📊 Dashboard Button Text', 'boldmcqspro'),
+        'section' => 'boldmcqspro_header',
+        'type'    => 'text',
+    ));
+
+    // === LEGACY SUPPORT (Keep old settings for backward compatibility) ===
+    
+    // Old Header Button Text (map to Button 1)
+    $wp_customize->add_setting('boldmcqspro_header_button_text', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    // Old Header Button Link (map to Button 1)
+    $wp_customize->add_setting('boldmcqspro_header_button_link', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
     ));
 
     // Show Login/Register Buttons
@@ -77,9 +540,10 @@ function boldmcqspro_customize_register($wp_customize) {
     ));
 
     $wp_customize->add_control('boldmcqspro_show_auth_buttons', array(
-        'label'   => __('Show Login/Register Buttons', 'boldmcqspro'),
-        'section' => 'boldmcqspro_header',
-        'type'    => 'checkbox',
+        'label'       => __('🔓 Show Login/Register Buttons', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_header',
+        'type'        => 'checkbox',
+        'description' => __('Display authentication buttons for logged-out users', 'boldmcqspro'),
     ));
 
     // Navigation Menu Section
@@ -504,7 +968,7 @@ function boldmcqspro_customize_register($wp_customize) {
     ));
     
     $wp_customize->add_control('boldmcqspro_show_top_contributors', array(
-        'label'       => __('🏆 Show Top Contributors', 'boldmcqspro'),
+        'label'       => __('Show Top Contributors', 'boldmcqspro'),
         'section'     => 'boldmcqspro_homepage_mcqs',
         'type'        => 'checkbox',
         'description' => __('Display top contributors widget in sidebar', 'boldmcqspro'),
@@ -518,7 +982,7 @@ function boldmcqspro_customize_register($wp_customize) {
     ));
     
     $wp_customize->add_control('boldmcqspro_show_categories_widget', array(
-        'label'       => __('📂 Show Categories Widget', 'boldmcqspro'),
+        'label'       => __('Show Categories Widget', 'boldmcqspro'),
         'section'     => 'boldmcqspro_homepage_mcqs',
         'type'        => 'checkbox',
         'description' => __('Display categories widget in sidebar', 'boldmcqspro'),
@@ -532,12 +996,12 @@ function boldmcqspro_customize_register($wp_customize) {
     ));
     
     $wp_customize->add_control('boldmcqspro_mcq_card_style', array(
-        'label'       => __('🎨 MCQ Card Style', 'boldmcqspro'),
+        'label'       => __('MCQ Card Style', 'boldmcqspro'),
         'section'     => 'boldmcqspro_homepage_mcqs',
         'type'        => 'select',
         'description' => __('Choose the visual style of MCQ cards', 'boldmcqspro'),
         'choices'     => array(
-            'default'  => __('🔷 Default (Rounded with Shadow)', 'boldmcqspro'),
+            'default'  => __('Default (Rounded with Shadow)', 'boldmcqspro'),
             'minimal'  => __('⬜ Minimal (Clean & Simple)', 'boldmcqspro'),
             'bordered' => __('🔳 Bordered (Classic Look)', 'boldmcqspro'),
             'gradient' => __('🌈 Gradient (Modern Style)', 'boldmcqspro'),
