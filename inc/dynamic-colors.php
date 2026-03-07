@@ -28,6 +28,16 @@ function boldmcqspro_output_dynamic_colors() {
     $secondary = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_secondary_color', '#10B981' ) );
     $accent    = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_accent_color',    '#F59E0B' ) );
 
+    // Background & surface colours (empty = use default theme styles)
+    $body_bg      = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_body_bg_color',    '' ) );
+    $card_bg      = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_card_bg_color',    '' ) );
+    $header_bg    = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_header_bg_color',  '' ) );
+    $footer_bg    = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_footer_bg_color',  '' ) );
+    $text_color   = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_text_color',       '' ) );
+    $heading_color = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_heading_color',   '' ) );
+    $muted_bg     = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_muted_bg_color',    '' ) );
+    $border_color = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_border_color',      '' ) );
+
     // MCQ-specific
     $opt_text_color  = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_mcq_option_text_color',   '#FFFFFF' ) );
     $letter_color    = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_mcq_option_letter_color', '' ) );
@@ -218,7 +228,106 @@ function boldmcqspro_output_dynamic_colors() {
         }
         <?php endif; ?>
 
-        /* ─── 7. Search Bar (was hardcoded in style.css) ────────────────── */
+        /* ─── 8. Background & Surface Colours (Customizer-controlled) ──── */
+
+        <?php if ( $body_bg ) : ?>
+        body,
+        .site,
+        #page {
+            background-color: <?php echo esc_attr( $body_bg ); ?> !important;
+        }
+        /* Tailwind max-w container inherits body bg */
+        .max-w-7xl,
+        .max-w-3xl,
+        .max-w-5xl {
+            background-color: transparent !important;
+        }
+        <?php endif; ?>
+
+        <?php if ( $card_bg ) : ?>
+        /* MCQ cards, sidebar widgets, panels */
+        .mcq-card,
+        .bg-white,
+        div[class*="bg-white"],
+        aside .bg-white,
+        .rounded-xl.shadow-md,
+        .boldmcqs-stat-card {
+            background-color: <?php echo esc_attr( $card_bg ); ?> !important;
+        }
+        <?php endif; ?>
+
+        <?php if ( $header_bg ) : ?>
+        /* Site header */
+        header,
+        header.sticky,
+        nav.header-nav,
+        #site-header,
+        .site-header {
+            background-color: <?php echo esc_attr( $header_bg ); ?> !important;
+        }
+        <?php endif; ?>
+
+        <?php if ( $footer_bg ) : ?>
+        /* Site footer */
+        footer,
+        #colophon,
+        .site-footer {
+            background-color: <?php echo esc_attr( $footer_bg ); ?> !important;
+        }
+        <?php endif; ?>
+
+        <?php if ( $text_color ) : ?>
+        /* Body / paragraph text */
+        body,
+        p,
+        .text-gray-600,
+        .text-gray-700,
+        .text-slate-600,
+        .text-slate-700 {
+            color: <?php echo esc_attr( $text_color ); ?> !important;
+        }
+        <?php endif; ?>
+
+        <?php if ( $heading_color ) : ?>
+        /* Headings */
+        h1, h2, h3, h4, h5, h6,
+        .text-gray-900,
+        .text-slate-900 {
+            color: <?php echo esc_attr( $heading_color ); ?> !important;
+        }
+        <?php endif; ?>
+
+        <?php if ( $muted_bg ) : ?>
+        /* Muted / Soft backgrounds (gray-50, gray-100, gray-200) */
+        .bg-gray-50,
+        .bg-gray-100,
+        .bg-gray-200,
+        .hover\:bg-gray-50:hover,
+        .hover\:bg-gray-100:hover,
+        .dark .dark\:bg-gray-700,
+        .dark .dark\:bg-gray-700\/50,
+        .category-badge,
+        .pagination a:hover,
+        .jump-to-page-btn {
+            background-color: <?php echo esc_attr( $muted_bg ); ?> !important;
+        }
+        <?php endif; ?>
+
+        <?php if ( $border_color ) : ?>
+        /* Borders and dividers */
+        border,
+        .border,
+        [class*="border-gray-"],
+        .dark [class*="dark\:border-gray-"],
+        hr,
+        .mcq-option,
+        .search-input {
+            border-color: <?php echo esc_attr( $border_color ); ?> !important;
+        }
+        <?php endif; ?>
+
+        /* ─── 9. Search Bar (was hardcoded in style.css) ────────────────── */
+
         .searching,
         form[role="search"] input:focus {
             border-color: rgb(var(--cp)) !important;

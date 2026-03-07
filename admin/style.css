@@ -1,4 +1,11 @@
-/* BoldMCQs Admin Styles */
+/* BoldMCQs Admin Styles
+ * ─────────────────────────────────────────────────────────────────────────
+ * Brand colours come from WordPress Customizer via PHP-injected CSS vars:
+ *   --adm-p  = primary colour  (default #3B82F6)
+ *   --adm-s  = secondary colour (default #10B981)
+ * Injected by boldmcqspro_admin_inject_color_vars() in inc/admin.php
+ * ─────────────────────────────────────────────────────────────────────────
+ */
 
 /* Common Dashboard Styles */
 .boldmcqs-admin-page {
@@ -15,7 +22,7 @@
 
 .boldmcqs-page-title i {
     margin-right: 12px;
-    color: #22c55e;
+    color: var(--adm-s, #10B981);
 }
 
 .boldmcqs-description {
@@ -55,12 +62,12 @@
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    background: linear-gradient(135deg, var(--adm-s, #10B981) 0%, color-mix(in srgb, var(--adm-s, #10B981) 80%, black) 100%);
     color: white;
 }
 
 .btn-secondary {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: linear-gradient(135deg, var(--adm-p, #3B82F6) 0%, color-mix(in srgb, var(--adm-p, #3B82F6) 80%, black) 100%);
     color: white;
 }
 
@@ -76,12 +83,12 @@
 
 .btn-outline {
     background: white;
-    color: #22c55e;
-    border: 2px solid #22c55e;
+    color: var(--adm-s, #10B981);
+    border: 2px solid var(--adm-s, #10B981);
 }
 
 .btn-outline:hover {
-    background: #22c55e;
+    background: var(--adm-s, #10B981);
     color: white;
 }
 
@@ -117,11 +124,11 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: #22c55e;
+    background: var(--adm-s, #10B981);
 }
 
 .boldmcqs-stat-card.stat-users::before {
-    background: #3b82f6;
+    background: var(--adm-p, #3B82F6);
 }
 
 .boldmcqs-stat-card.stat-categories::before {
@@ -140,11 +147,11 @@
 .stat-icon {
     font-size: 2.5rem;
     margin-bottom: 16px;
-    color: #22c55e;
+    color: var(--adm-s, #10B981);
 }
 
 .stat-users .stat-icon {
-    color: #3b82f6;
+    color: var(--adm-p, #3B82F6);
 }
 
 .stat-categories .stat-icon {
@@ -170,7 +177,7 @@
 }
 
 .stat-content small {
-    color: #16a34a;
+    color: var(--adm-s, #10B981);
     font-weight: 500;
 }
 
@@ -219,7 +226,7 @@
 
 .section-header h2 i {
     margin-right: 8px;
-    color: #22c55e;
+    color: var(--adm-s, #10B981);
 }
 
 /* Tables */
@@ -272,13 +279,13 @@
 }
 
 .mcq-actions a:hover {
-    color: #22c55e;
+    color: var(--adm-s, #10B981);
 }
 
 .category-badge {
     display: inline-block;
-    background: #dcfce7;
-    color: #16a34a;
+    background: color-mix(in srgb, var(--adm-s, #10B981) 15%, white);
+    color: var(--adm-s, #10B981);
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 12px;
@@ -328,7 +335,7 @@
 
 .boldmcqs-system-info h3 i {
     margin-right: 8px;
-    color: #3b82f6;
+    color: var(--adm-p, #3B82F6);
 }
 
 .info-grid {
@@ -461,7 +468,7 @@
 }
 
 .use-template {
-    background: #22c55e !important;
+    background: var(--adm-s, #10B981) !important;
     color: white !important;
 }
 
@@ -605,8 +612,8 @@
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #22c55e;
-    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+    border-color: var(--adm-s, #10B981);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--adm-s, #10B981) 20%, transparent);
 }
 
 .option-input {
@@ -639,83 +646,24 @@
     background: #dc2626;
 }
 
-
-
-
-
 /* Responsive Design */
 @media (max-width: 768px) {
-    .boldmcqs-stats-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .actions-grid {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .boldmcqs-templates-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .options-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .upload-actions {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .format-tabs {
-        flex-wrap: wrap;
-    }
-    
-    .preview-stats {
-        flex-direction: column;
-        gap: 16px;
-    }
-    
-    .section-header {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-    }
-    
-    .modal-content {
-        width: 95%;
-        margin: 20px;
-    }
-    
-    .modal-footer {
-        flex-direction: column;
-        gap: 12px;
-    }
-    
-    .export-import-controls {
-        flex-direction: column;
-    }
+    .boldmcqs-stats-grid { grid-template-columns: 1fr; }
+    .actions-grid { flex-direction: column; align-items: center; }
+    .boldmcqs-templates-grid { grid-template-columns: 1fr; }
+    .options-grid { grid-template-columns: 1fr; }
+    .upload-actions { flex-direction: column; align-items: center; }
+    .format-tabs { flex-wrap: wrap; }
+    .preview-stats { flex-direction: column; gap: 16px; }
+    .section-header { flex-direction: column; gap: 16px; text-align: center; }
+    .modal-content { width: 95%; margin: 20px; }
+    .modal-footer { flex-direction: column; gap: 12px; }
+    .export-import-controls { flex-direction: column; }
 }
 
 @media (max-width: 480px) {
-    .boldmcqs-page-title {
-        font-size: 1.5rem;
-    }
-    
-    .boldmcqs-btn {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    .template-header {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-    }
-    
-    .template-footer {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-    }
+    .boldmcqs-page-title { font-size: 1.5rem; }
+    .boldmcqs-btn { width: 100%; justify-content: center; }
+    .template-header { flex-direction: column; gap: 12px; text-align: center; }
+    .template-footer { flex-direction: column; gap: 12px; text-align: center; }
 }

@@ -122,6 +122,22 @@ function boldmcqspro_admin_enqueue_scripts($hook_suffix) {
 add_action('admin_enqueue_scripts', 'boldmcqspro_admin_enqueue_scripts');
 
 /**
+ * Inject customizer colour variables into admin <head>
+ * so admin/style.css can use var(--adm-p) / var(--adm-s).
+ */
+function boldmcqspro_admin_inject_color_vars() {
+    $screen = get_current_screen();
+    if ( ! $screen || strpos( $screen->id, 'boldmcqs' ) === false ) {
+        return;
+    }
+    $primary   = sanitize_hex_color( get_theme_mod( 'boldmcqspro_primary_color',   '#3B82F6' ) );
+    $secondary = sanitize_hex_color( get_theme_mod( 'boldmcqspro_secondary_color', '#10B981' ) );
+    echo '<style>:root{--adm-p:' . esc_attr( $primary ) . ';--adm-s:' . esc_attr( $secondary ) . ';}</style>' . "\n";
+}
+add_action( 'admin_head', 'boldmcqspro_admin_inject_color_vars' );
+
+
+/**
  * Add admin body classes for our pages
  */
 function boldmcqspro_admin_body_class($classes) {

@@ -842,7 +842,116 @@ function boldmcqspro_customize_register($wp_customize) {
  )));
 
 
+ // ============================================================
+ // === BACKGROUND & SURFACE COLORS ===
+ // ============================================================
+
+ // Site Background Color (light mode)
+ $wp_customize->add_setting('boldmcqspro_body_bg_color', array(
+     'default'           => '',
+     'sanitize_callback' => 'sanitize_hex_color',
+     'transport'         => 'refresh',
+ ));
+ $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_body_bg_color', array(
+     'label'       => __('Page Background', 'boldmcqspro'),
+     'description' => __('Main page/body background color (light mode). Leave empty for default white.', 'boldmcqspro'),
+     'section'     => 'boldmcqspro_colors',
+     'priority'    => 25,
+ )));
+
+ // Card / Surface Background
+ $wp_customize->add_setting('boldmcqspro_card_bg_color', array(
+     'default'           => '',
+     'sanitize_callback' => 'sanitize_hex_color',
+     'transport'         => 'refresh',
+ ));
+ $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_card_bg_color', array(
+     'label'       => __('Card / Surface Background', 'boldmcqspro'),
+     'description' => __('Background color for MCQ cards, sidebar widgets, and panels. Default: white.', 'boldmcqspro'),
+     'section'     => 'boldmcqspro_colors',
+     'priority'    => 26,
+ )));
+
+ // Header Background
+ $wp_customize->add_setting('boldmcqspro_header_bg_color', array(
+     'default'           => '',
+     'sanitize_callback' => 'sanitize_hex_color',
+     'transport'         => 'refresh',
+ ));
+ $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_header_bg_color', array(
+     'label'       => __('Header Background', 'boldmcqspro'),
+     'description' => __('Site header/navigation bar background. Leave empty to use primary color.', 'boldmcqspro'),
+     'section'     => 'boldmcqspro_colors',
+     'priority'    => 27,
+ )));
+
+ // Footer Background
+ $wp_customize->add_setting('boldmcqspro_footer_bg_color', array(
+     'default'           => '',
+     'sanitize_callback' => 'sanitize_hex_color',
+     'transport'         => 'refresh',
+ ));
+ $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_footer_bg_color', array(
+     'label'       => __('Footer Background', 'boldmcqspro'),
+     'description' => __('Site footer background color. Leave empty for default dark.', 'boldmcqspro'),
+     'section'     => 'boldmcqspro_colors',
+     'priority'    => 28,
+ )));
+
+ // Body Text Color
+ $wp_customize->add_setting('boldmcqspro_text_color', array(
+     'default'           => '',
+     'sanitize_callback' => 'sanitize_hex_color',
+     'transport'         => 'refresh',
+ ));
+ $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_text_color', array(
+     'label'       => __('Body Text Color', 'boldmcqspro'),
+     'description' => __('Main paragraph and body text color. Leave empty for default dark gray.', 'boldmcqspro'),
+     'section'     => 'boldmcqspro_colors',
+     'priority'    => 29,
+ )));
+
+ // Heading Text Color
+ $wp_customize->add_setting('boldmcqspro_heading_color', array(
+     'default'           => '',
+     'sanitize_callback' => 'sanitize_hex_color',
+     'transport'         => 'refresh',
+ ));
+ $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_heading_color', array(
+     'label'       => __('Heading Text Color', 'boldmcqspro'),
+     'description' => __('Color for all headings (h1–h4). Leave empty for default near-black.', 'boldmcqspro'),
+     'section'     => 'boldmcqspro_colors',
+     'priority'    => 30,
+ )));
+
+ // Muted Background (Sections, hover, soft areas)
+ $wp_customize->add_setting('boldmcqspro_muted_bg_color', array(
+     'default'           => '',
+     'sanitize_callback' => 'sanitize_hex_color',
+     'transport'         => 'refresh',
+ ));
+ $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_muted_bg_color', array(
+     'label'       => __('Muted / Soft Background', 'boldmcqspro'),
+     'description' => __('Used for sections, soft backgrounds, and hover states. Replaces default light gray (gray-50/100).', 'boldmcqspro'),
+     'section'     => 'boldmcqspro_colors',
+     'priority'    => 31,
+ )));
+
+ // Border Color
+ $wp_customize->add_setting('boldmcqspro_border_color', array(
+     'default'           => '',
+     'sanitize_callback' => 'sanitize_hex_color',
+     'transport'         => 'refresh',
+ ));
+ $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_border_color', array(
+     'label'       => __('Site Border Color', 'boldmcqspro'),
+     'description' => __('Default color for dividers, card borders, and input outlines. Replaces gray-200/300.', 'boldmcqspro'),
+     'section'     => 'boldmcqspro_colors',
+     'priority'    => 32,
+ )));
+
  // === MCQ SPECIFIC COLORS ===
+
  
  // MCQ Option Text Color
  $wp_customize->add_setting('boldmcqspro_mcq_option_text_color', array(
