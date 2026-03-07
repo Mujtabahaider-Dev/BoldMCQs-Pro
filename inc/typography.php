@@ -96,18 +96,18 @@ function boldmcqspro_load_google_fonts() {
         return;
     }
     
-    // Build Google Fonts URL
+    // Build Google Fonts URL using wght axis format for modern API
     $font_families = array();
-    $font_weights = array('300', '400', '500', '600', '700');
+    $font_weights  = '300;400;500;600;700';
     
     foreach ($fonts_to_load as $font) {
-        $font_name = str_replace(' ', '+', $font);
-        $font_families[] = $font_name . ':' . implode(',', $font_weights);
+        $font_name       = str_replace(' ', '+', $font);
+        $font_families[] = $font_name . ':wght@' . $font_weights;
     }
     
-    $google_fonts_url = 'https://fonts.googleapis.com/css2?' . 
-                       'family=' . implode('&family=', $font_families) .
-                       '&display=swap';
+    $google_fonts_url = 'https://fonts.googleapis.com/css2?' .
+                        'family=' . implode('&family=', $font_families) .
+                        '&display=swap';
     
     wp_enqueue_style('boldmcqspro-google-fonts', $google_fonts_url, array(), null);
 }
@@ -173,10 +173,12 @@ function boldmcqspro_generate_typography_css() {
             line-height: 1.2;
         }
         
-        /* MCQ Question Styling */
+        /* MCQ Question Styling — covers both .mcq-question class and the h3 inside .mcq-card */
         .mcq-question,
         .mcq-question-text,
-        .boldmcqs-question {
+        .boldmcqs-question,
+        .mcq-card h3,
+        .mcq-card .mcq-question-title {
             font-family: {$mcq_question_font_family};
             font-size: {$mcq_question_size}px;
             font-weight: 500;

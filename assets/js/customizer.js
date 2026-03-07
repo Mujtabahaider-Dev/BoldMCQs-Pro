@@ -178,4 +178,67 @@
         }
     });
 
+    // =========================================================
+    // TYPOGRAPHY LIVE PREVIEW
+    // (font family selection uses transport:refresh in PHP)
+    // =========================================================
+
+    var spacingMap = {
+        tighter: '-0.05em',
+        tight:   '-0.025em',
+        normal:  '0',
+        wide:    '0.025em',
+        wider:   '0.05em',
+        widest:  '0.1em'
+    };
+
+    // Base font size
+    wp.customize('boldmcqspro_base_font_size', function(value) {
+        value.bind(function(newVal) {
+            $('body').css('font-size', parseInt(newVal, 10) + 'px');
+        });
+    });
+
+    // MCQ question font size
+    wp.customize('boldmcqspro_mcq_question_size', function(value) {
+        value.bind(function(newVal) {
+            $('.mcq-card h3, .mcq-question, .mcq-question-text, .mcq-card .mcq-question-title')
+                .css('font-size', parseInt(newVal, 10) + 'px');
+        });
+    });
+
+    // MCQ options font size
+    wp.customize('boldmcqspro_mcq_options_size', function(value) {
+        value.bind(function(newVal) {
+            $('.mcq-option, .mcq-options, .boldmcqs-option')
+                .css('font-size', parseInt(newVal, 10) + 'px');
+        });
+    });
+
+    // Line height
+    wp.customize('boldmcqspro_line_height', function(value) {
+        value.bind(function(newVal) {
+            $('body').css('line-height', parseFloat(newVal));
+        });
+    });
+
+    // Letter spacing
+    wp.customize('boldmcqspro_letter_spacing', function(value) {
+        value.bind(function(newVal) {
+            $('body').css('letter-spacing', spacingMap[newVal] || '0');
+        });
+    });
+
+    // =========================================================
+    // HEADER LIVE PREVIEW
+    // =========================================================
+
+    // Header background color
+    wp.customize('boldmcqspro_header_bg', function(value) {
+        value.bind(function(newColor) {
+            $('header').css('background-color', newColor);
+        });
+    });
+
 })(jQuery);
+

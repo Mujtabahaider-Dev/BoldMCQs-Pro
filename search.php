@@ -364,7 +364,7 @@ if (!empty($search_query)) {
                         </a>
                         <?php if (get_post_type_archive_link('mcqs')) : ?>
                             <a href="<?php echo get_post_type_archive_link('mcqs'); ?>" 
-                               class="inline-flex items-center px-4 py-2 bg-secondary text-white rounded-lg hover:bg-green-600 transition-colors">
+                               class="inline-flex items-center px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary/80 transition-colors">
                                 <span>🎯</span>
                                 <span class="ml-2">Browse MCQs</span>
                             </a>

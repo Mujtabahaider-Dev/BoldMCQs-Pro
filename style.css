@@ -11,23 +11,27 @@ Text Domain: boldmcqspro
 Tags: quiz, education, responsive, tailwindcss
 */
 
-/* Add your custom styles below */
+/* ── Note: site colours come from inc/dynamic-colors.php ───────────────
+   All theme colours use CSS custom properties:
+     rgb(var(--cp))   → primary colour
+     rgb(var(--cs))   → secondary colour
+   ────────────────────────────────────────────────────────────────────── */
 
 /* Search functionality styles */
 .searching {
-    border-color: #3B82F6 !important;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    border-color: rgb(var(--cp)) !important;
+    box-shadow: 0 0 0 3px rgba(var(--cp), 0.15) !important;
 }
 
 .searching::placeholder {
-    color: #3B82F6 !important;
+    color: rgb(var(--cp)) !important;
 }
 
 /* Search form focus states */
 form[role="search"] input:focus {
     outline: none;
-    border-color: #3B82F6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: rgb(var(--cp));
+    box-shadow: 0 0 0 3px rgba(var(--cp), 0.15);
 }
 
 /* Search button hover effects */
@@ -49,4 +53,3 @@ mark {
     color: #FEF3C7;
 }
 
-@import url("https://cdn.tailwindcss.com");

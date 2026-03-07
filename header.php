@@ -5,300 +5,35 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '<?php echo boldmcqspro_get_option('boldmcqspro_primary_color', '#3B82F6'); ?>',
-                        secondary: '<?php echo boldmcqspro_get_option('boldmcqspro_secondary_color', '#10B981'); ?>',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        :root {
-            <?php
-            // Get customizer colors and convert hex to RGB
-            $primary_hex = boldmcqspro_get_option('boldmcqspro_primary_color', '#3B82F6');
-            $secondary_hex = boldmcqspro_get_option('boldmcqspro_secondary_color', '#10B981');
-            ?>
-            --color-primary: <?php echo boldmcqspro_hex_to_rgb($primary_hex); ?>;
-            --color-secondary: <?php echo boldmcqspro_hex_to_rgb($secondary_hex); ?>;
-        }
 
-        /* Override theme classes with customizer colors - HIGH PRIORITY */
-        body,
-        .theme-blue,
-        .theme-purple, 
-        .theme-green,
-        .theme-orange,
-        .theme-pink {
-            --color-primary: <?php echo boldmcqspro_hex_to_rgb($primary_hex); ?> !important;
-            --color-secondary: <?php echo boldmcqspro_hex_to_rgb($secondary_hex); ?> !important;
-        }
-        
-        /* Backup theme classes (will be overridden by customizer) */
-        body:not(.customizer-colors) .theme-blue {
-            --color-primary: 59, 130, 246;
-            --color-secondary: 16, 185, 129;
-        }
+    <style id="boldmcqspro-responsive">
 
-        body:not(.customizer-colors) .theme-purple {
-            --color-primary: 147, 51, 234;
-            --color-secondary: 236, 72, 153;
-        }
-
-        body:not(.customizer-colors) .theme-green {
-            --color-primary: 34, 197, 94;
-            --color-secondary: 6, 182, 212;
-        }
-
-        body:not(.customizer-colors) .theme-orange {
-            --color-primary: 249, 115, 22;
-            --color-secondary: 239, 68, 68;
-        }
-
-        body:not(.customizer-colors) .theme-pink {
-            --color-primary: 236, 72, 153;
-            --color-secondary: 168, 85, 247;
-        }
-
-        .bg-primary {
-            background-color: rgb(var(--color-primary));
-        }
-
-        .text-primary {
-            color: rgb(var(--color-primary));
-        }
-
-        .border-primary {
-            border-color: rgb(var(--color-primary));
-        }
-
-        .hover\:bg-primary:hover {
-            background-color: rgb(var(--color-primary));
-        }
-
-        .hover\:text-primary:hover {
-            color: rgb(var(--color-primary));
-        }
-
-        .hover\:border-primary:hover {
-            border-color: rgb(var(--color-primary));
-        }
-
-        /* Menu Styles based on Customizer Settings */
-        <?php 
-        $menu_style = boldmcqspro_get_option('boldmcqspro_menu_style', 'default');
+        /* === Menu Styles (from Customizer) === */
+        <?php
+        $menu_style       = boldmcqspro_get_option('boldmcqspro_menu_style', 'default');
         $menu_hover_effect = boldmcqspro_get_option('boldmcqspro_menu_hover_effect', 'underline');
-        
         if ($menu_style === 'minimal') : ?>
-        /* Minimal Menu Style */
-        .main-navigation a {
-            font-weight: 400 !important;
-            padding: 0.5rem 0.75rem !important;
-            border-radius: 0.25rem !important;
-        }
+        .main-navigation a { font-weight:400 !important; padding:.5rem .75rem !important; border-radius:.25rem !important; }
         <?php endif; ?>
-        
         <?php if ($menu_style === 'bold') : ?>
-        /* Bold Menu Style */
-        .main-navigation a {
-            font-weight: 600 !important;
-            padding: 0.75rem 1rem !important;
-            border-radius: 0.5rem !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.05em !important;
-        }
+        .main-navigation a { font-weight:600 !important; padding:.75rem 1rem !important; border-radius:.5rem !important; text-transform:uppercase !important; letter-spacing:.05em !important; }
         <?php endif; ?>
-        
         <?php if ($menu_hover_effect === 'underline') : ?>
-        /* Underline Hover Effect */
-        .main-navigation a:hover {
-            text-decoration: underline !important;
-            text-decoration-color: rgb(var(--color-primary)) !important;
-            text-underline-offset: 4px !important;
-        }
+        .main-navigation a:hover { text-decoration:underline !important; text-decoration-color:rgb(var(--cp)) !important; text-underline-offset:4px !important; }
         <?php endif; ?>
-        
         <?php if ($menu_hover_effect === 'background') : ?>
-        /* Background Hover Effect */
-        .main-navigation a:hover {
-            background-color: rgb(var(--color-primary)) !important;
-            color: white !important;
-        }
+        .main-navigation a:hover { background-color:rgb(var(--cp)) !important; color:#fff !important; }
         <?php endif; ?>
-        
         <?php if ($menu_hover_effect === 'scale') : ?>
-        /* Scale Hover Effect */
-        .main-navigation a:hover {
-            transform: scale(1.05) !important;
-            transition: transform 0.2s ease-in-out !important;
-        }
+        .main-navigation a:hover { transform:scale(1.05) !important; transition:transform .2s ease-in-out !important; }
         <?php endif; ?>
-        
         <?php if ($menu_hover_effect === 'none') : ?>
-        /* No Hover Effect */
-        .main-navigation a:hover {
-            text-decoration: none !important;
-            background-color: transparent !important;
-            transform: none !important;
-        }
+        .main-navigation a:hover { text-decoration:none !important; background-color:transparent !important; transform:none !important; }
         <?php endif; ?>
 
-        .focus\:ring-primary:focus {
-            --tw-ring-color: rgb(var(--color-primary));
-        }
-
-        .bg-secondary {
-            background-color: rgb(var(--color-secondary));
-        }
-
-        .text-secondary {
-            color: rgb(var(--color-secondary));
-        }
-
-        .border-secondary {
-            border-color: rgb(var(--color-secondary));
-        }
+        .theme-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
 
-
-        .bg-primary\/5 {
-            background-color: rgb(var(--color-primary) / 0.05);
-        }
-
-        .bg-primary\/10 {
-            background-color: rgb(var(--color-primary) / 0.1);
-        }
-
-        .bg-secondary\/10 {
-            background-color: rgb(var(--color-secondary) / 0.1);
-        }
-
-        .bg-secondary\/20 {
-            background-color: rgb(var(--color-secondary) / 0.2);
-        }
-
-
-
-        .from-primary {
-            --tw-gradient-from: rgb(var(--color-primary));
-        }
-
-        .to-secondary {
-            --tw-gradient-to: rgb(var(--color-secondary));
-        }
-
-        .from-secondary {
-            --tw-gradient-from: rgb(var(--color-secondary));
-        }
-
-        .to-primary {
-            --tw-gradient-to: rgb(var(--color-primary));
-        }
-
-
-
-        .to-secondary\/20 {
-            --tw-gradient-to: rgb(var(--color-secondary) / 0.2);
-        }
-
-        .theme-transition {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* MCQ Option Colors - Customizable */
-        .mcq-option,
-        .mcq-option *,
-        .mcq-option .flex-1,
-        .mcq-option span {
-            color: <?php echo boldmcqspro_get_option('boldmcqspro_mcq_option_text_color', '#FFFFFF'); ?> !important;
-        }
-
-        .dark .mcq-option,
-        .dark .mcq-option *,
-        .dark .mcq-option .flex-1,
-        .dark .mcq-option span {
-            color: <?php echo boldmcqspro_get_option('boldmcqspro_mcq_option_text_color', '#FFFFFF'); ?> !important;
-        }
-
-        .mcq-option:hover,
-        .mcq-option:hover *,
-        .mcq-option:hover .flex-1,
-        .mcq-option:hover span {
-            color: <?php echo boldmcqspro_get_option('boldmcqspro_mcq_option_text_color', '#FFFFFF'); ?> !important;
-        }
-
-        .dark .mcq-option:hover,
-        .dark .mcq-option:hover *,
-        .dark .mcq-option:hover .flex-1,
-        .dark .mcq-option:hover span {
-            color: <?php echo boldmcqspro_get_option('boldmcqspro_mcq_option_text_color', '#FFFFFF'); ?> !important;
-        }
-
-        /* MCQ Option Letters (A, B, C, D) */
-        .practice-letter {
-            <?php 
-            $letter_color = boldmcqspro_get_option('boldmcqspro_mcq_option_letter_color', '');
-            if (!empty($letter_color)) {
-                echo 'color: ' . $letter_color . ' !important;';
-            } else {
-                echo 'color: rgb(var(--color-primary)) !important;';
-            }
-            ?>
-        }
-
-        /* Correct Answer Indicators */
-        .correct-indicator {
-            <?php 
-            $correct_color = boldmcqspro_get_option('boldmcqspro_mcq_correct_color', '');
-            if (!empty($correct_color)) {
-                echo 'color: ' . $correct_color . ' !important;';
-            } else {
-                echo 'color: rgb(var(--color-secondary)) !important;';
-            }
-            ?>
-        }
-
-        /* MCQ Card Background */
-        <?php if ($mcq_bg_color = boldmcqspro_get_option('boldmcqspro_mcq_background_color', '')) : ?>
-        .mcq-card {
-            background-color: <?php echo $mcq_bg_color; ?> !important;
-        }
-        <?php endif; ?>
-
-        /* MCQ Card Border */
-        <?php if ($mcq_border_color = boldmcqspro_get_option('boldmcqspro_mcq_border_color', '')) : ?>
-        .mcq-card {
-            border-color: <?php echo $mcq_border_color; ?> !important;
-        }
-        <?php endif; ?>
-
-        /* MCQ Option Hover Background */
-        <?php if ($mcq_hover_color = boldmcqspro_get_option('boldmcqspro_mcq_hover_color', '')) : ?>
-        .mcq-option:hover {
-            background-color: <?php echo $mcq_hover_color; ?> !important;
-        }
-        <?php endif; ?>
-
-        /* Explanation Button Color */
-        <?php if ($explanation_btn_color = boldmcqspro_get_option('boldmcqspro_explanation_btn_color', '')) : ?>
-        .explanation-btn {
-            background-color: <?php echo $explanation_btn_color; ?> !important;
-        }
-        <?php endif; ?>
-
-        /* Quiz Mode Button Color */
-        <?php if ($quiz_btn_color = boldmcqspro_get_option('boldmcqspro_quiz_btn_color', '')) : ?>
-        .quiz-mode-btn {
-            background-color: <?php echo $quiz_btn_color; ?> !important;
-        }
-        <?php endif; ?>
-
-        /* === RESPONSIVE DESIGN === */
         
         /* Mobile First Approach - Base styles for mobile */
         @media (max-width: 640px) {
@@ -508,12 +243,24 @@
     <?php wp_head(); ?>
 </head>
 
+<?php
+// --- Header layout settings ---
+$sticky_header = boldmcqspro_get_option('boldmcqspro_sticky_header', true);
+$header_height = absint(boldmcqspro_get_option('boldmcqspro_header_height', 64));
+$header_bg     = boldmcqspro_get_option('boldmcqspro_header_bg', '');
+$header_shadow = sanitize_text_field(boldmcqspro_get_option('boldmcqspro_header_shadow', 'md'));
+
+$header_position    = $sticky_header ? 'sticky top-0 z-50' : 'relative';
+$header_shadow_class = $header_shadow === 'none' ? '' : 'shadow-' . $header_shadow;
+$header_style        = $header_bg ? 'background-color:' . esc_attr($header_bg) . ';' : '';
+?>
 <body <?php body_class('bg-gray-50 dark:bg-gray-900 transition-colors duration-300 theme-blue theme-transition'); ?>>
     <!-- Header -->
     <header
-        class="sticky top-0 z-50 bg-white dark:bg-gray-800 shadow-md border-b dark:border-gray-700 transition-colors duration-300">
+        class="<?php echo esc_attr($header_position); ?> bg-white dark:bg-gray-800 <?php echo esc_attr($header_shadow_class); ?> border-b dark:border-gray-700 transition-colors duration-300"
+        style="<?php echo $header_style; ?>">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
+            <div class="flex justify-between items-center" style="height:<?php echo $header_height; ?>px;">
                 <?php get_template_part('template-parts/header/site-branding'); ?>
                 <!-- Navigation -->
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_primary_menu', true)) : ?>
@@ -617,27 +364,8 @@
                             </div>
                         </div>
                     </div>
-                    <?php if (boldmcqspro_get_option('boldmcqspro_show_auth_buttons', true)) : ?>
-                        <?php if (is_user_logged_in()) : ?>
-                            <a href="<?php echo esc_url(wp_logout_url(home_url('/'))); ?>"
-                                class="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">Logout</a>
-                            <a href="<?php echo esc_url(admin_url()); ?>"
-                                class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors">Dashboard</a>
-                        <?php else : ?>
-                            <a href="<?php echo esc_url(wp_login_url(get_permalink())); ?>"
-                                class="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">Login</a>
-                            <a href="<?php echo esc_url(wp_registration_url()); ?>"
-                                class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors">Register</a>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                    
-                    <?php 
-                    $header_button_text = boldmcqspro_get_option('boldmcqspro_header_button_text', '');
-                    $header_button_link = boldmcqspro_get_option('boldmcqspro_header_button_link', '');
-                    if (!empty($header_button_text) && !empty($header_button_link)) : ?>
-                        <a href="<?php echo esc_url($header_button_link); ?>"
-                            class="px-4 py-2 bg-secondary text-white rounded-lg hover:bg-green-600 transition-colors"><?php echo esc_html($header_button_text); ?></a>
-                    <?php endif; ?>
+                    <?php echo boldmcqspro_render_auth_buttons(); ?>
+                    <?php echo boldmcqspro_render_header_buttons(); ?>
                 </div>
             </div>
         </div>
@@ -674,23 +402,26 @@
             }
             ?>
             
-            <!-- Mobile Auth Buttons -->
-            <?php if (boldmcqspro_get_option('boldmcqspro_show_auth_buttons', true)) : ?>
+            <!-- Mobile Auth & CTA Buttons -->
+            <?php
+            $auth_html = boldmcqspro_render_auth_buttons();
+            $btn_html  = boldmcqspro_render_header_buttons();
+            if ( ! empty( $auth_html ) || ! empty( $btn_html ) ) : ?>
                 <div class="pt-4 pb-2 border-t dark:border-gray-600 space-y-2">
-                    <?php if (is_user_logged_in()) : ?>
-                        <a href="<?php echo esc_url(admin_url()); ?>" class="block w-full px-3 py-2 text-center bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors">Dashboard</a>
-                        <a href="<?php echo esc_url(wp_logout_url(home_url('/'))); ?>" class="block w-full px-3 py-2 text-center text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">Logout</a>
-                    <?php else : ?>
-                        <a href="<?php echo esc_url(wp_login_url(get_permalink())); ?>" class="block w-full px-3 py-2 text-center text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">Login</a>
-                        <a href="<?php echo esc_url(wp_registration_url()); ?>" class="block w-full px-3 py-2 text-center bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors">Register</a>
-                    <?php endif; ?>
-                    
-                    <?php 
-                    $header_button_text = boldmcqspro_get_option('boldmcqspro_header_button_text', '');
-                    $header_button_link = boldmcqspro_get_option('boldmcqspro_header_button_link', '');
-                    if (!empty($header_button_text) && !empty($header_button_link)) : ?>
-                        <a href="<?php echo esc_url($header_button_link); ?>" class="block w-full px-3 py-2 text-center bg-secondary text-white rounded-lg hover:bg-green-600 transition-colors"><?php echo esc_html($header_button_text); ?></a>
-                    <?php endif; ?>
+                    <?php
+                    // Render auth buttons as block-level for mobile
+                    echo str_replace(
+                        'class="px-4',
+                        'class="block w-full text-center px-4',
+                        $auth_html
+                    );
+                    // Render CTA buttons as block-level for mobile
+                    echo str_replace(
+                        'class="px-',
+                        'class="block w-full text-center px-',
+                        $btn_html
+                    );
+                    ?>
                 </div>
             <?php endif; ?>
         </div>

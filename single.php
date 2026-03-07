@@ -75,7 +75,7 @@
                         <?php endif; ?>
 
                         <?php if (!empty($explanation)) : ?>
-                            <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-primary rounded-r-lg">
+                            <div class="mt-6 p-4 bg-primary/5 dark:bg-primary/10 border-l-4 border-primary rounded-r-lg">
                                 <h4 class="font-semibold text-gray-900 dark:text-white mb-2">📝 Explanation</h4>
                                 <p class="text-gray-700 dark:text-gray-300">
                                     <?php echo wp_kses_post($explanation); ?>
@@ -267,7 +267,7 @@
                                     $categories = get_the_category();
                                     if ($categories) :
                                         foreach ($categories as $category) : ?>
-                                            <a href="<?php echo get_category_link($category->term_id); ?>" class="px-3 py-1 bg-primary text-white text-sm rounded-full hover:bg-blue-600 transition-colors">
+                                            <a href="<?php echo get_category_link($category->term_id); ?>" class="px-3 py-1 bg-primary text-white text-sm rounded-full hover:bg-primary/80 transition-colors">
                                                 <?php echo esc_html($category->name); ?>
                                             </a>
                                     <?php endforeach;
