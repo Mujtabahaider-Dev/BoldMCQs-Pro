@@ -310,60 +310,8 @@ $header_style        = $header_bg ? 'background-color:' . esc_attr($header_bg) .
                 </div>
                 <?php endif; ?>
 
-                <!-- CTA Buttons & Theme Toggle -->
+                <!-- CTA Buttons -->
                 <div class="hidden md:flex items-center space-x-3">
-                    <div class="relative">
-                        <button id="themeToggle"
-                            class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-200 transform hover:scale-105">
-                            <svg class="w-5 h-5 text-amber-500 dark:text-blue-400" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                        </button>
-                        <!-- Theme Dropdown -->
-                        <div id="themeDropdown"
-                            class="hidden absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border dark:border-gray-700 z-50">
-                            <div class="p-2">
-                                <div class="text-xs font-medium text-gray-500 dark:text-gray-400 px-3 py-2">LIGHT/DARK
-                                    MODE</div>
-                                <button onclick="toggleLightDark()"
-                                    class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                                    <div id="modeIcon" class="w-4 h-4 text-amber-500 dark:text-blue-400">☀️</div>
-                                    <span id="modeText" class="text-sm text-gray-700 dark:text-gray-300">Switch to
-                                        Dark</span>
-                                </button>
-                                <div class="border-t dark:border-gray-600 my-2"></div>
-                                <div class="text-xs font-medium text-gray-500 dark:text-gray-400 px-3 py-2">COLOR THEMES
-                                </div>
-                                <button onclick="setColorTheme('blue')"
-                                    class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                                    <div class="w-4 h-4 rounded-full bg-blue-500"></div>
-                                    <span class="text-sm text-gray-700 dark:text-gray-300">Ocean Blue</span>
-                                </button>
-                                <button onclick="setColorTheme('purple')"
-                                    class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                                    <div class="w-4 h-4 rounded-full bg-purple-500"></div>
-                                    <span class="text-sm text-gray-700 dark:text-gray-300">Royal Purple</span>
-                                </button>
-                                <button onclick="setColorTheme('green')"
-                                    class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                                    <div class="w-4 h-4 rounded-full bg-green-500"></div>
-                                    <span class="text-sm text-gray-700 dark:text-gray-300">Forest Green</span>
-                                </button>
-                                <button onclick="setColorTheme('orange')"
-                                    class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                                    <div class="w-4 h-4 rounded-full bg-orange-500"></div>
-                                    <span class="text-sm text-gray-700 dark:text-gray-300">Sunset Orange</span>
-                                </button>
-                                <button onclick="setColorTheme('pink')"
-                                    class="w-full flex items-center space-x-3 px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                                    <div class="w-4 h-4 rounded-full bg-pink-500"></div>
-                                    <span class="text-sm text-gray-700 dark:text-gray-300">Cherry Pink</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                     <?php echo boldmcqspro_render_auth_buttons(); ?>
                     <?php echo boldmcqspro_render_header_buttons(); ?>
                 </div>

@@ -425,76 +425,7 @@
                 
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_categories_widget', true)) : ?>
                 <!-- Categories -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border dark:border-gray-700">
-                    <h3 class="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                        <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                        </svg>
-                        Categories
-                    </h3>
-                    <div class="space-y-3">
-                        <?php
-                        // Get MCQ categories with post count
-                        $mcq_categories = get_terms(array(
-                            'taxonomy' => 'mcq_category',
-                            'hide_empty' => true,
-                            'orderby' => 'count',
-                            'order' => 'DESC',
-                            'number' => 8
-                        ));
-                        
-                        if (!empty($mcq_categories) && !is_wp_error($mcq_categories)) :
-                            // Clean list styling for categories
-                        ?>
-                        <ul class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
-                            <?php foreach ($mcq_categories as $index => $category) :
-                        ?>
-                        <li>
-                            <a href="<?php echo esc_url(get_term_link($category)); ?>" 
-                               class="flex items-center justify-between py-3 px-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-200 text-gray-900 dark:text-white no-underline">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-2 h-2 bg-primary rounded-full"></div>
-                                    <span class="text-sm font-medium hover:text-primary transition-colors">
-                                        <?php echo esc_html($category->name); ?>
-                                    </span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <span class="text-xs text-gray-500 dark:text-gray-400">
-                                        (<?php echo $category->count; ?>)
-                                    </span>
-                                    <svg class="w-4 h-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                    </svg>
-                                </div>
-                            </a>
-                        </li>
-                        <?php 
-                            endforeach;
-                        ?>
-                        </ul>
-                        <?php
-                        else :
-                        ?>
-                        <div class="text-center py-8">
-                            <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                                </svg>
-                            </div>
-                            <p class="text-gray-500 dark:text-gray-400 text-sm mb-2">No categories yet</p>
-                            <?php if (current_user_can('manage_categories')) : ?>
-                                <a href="<?php echo admin_url('edit-tags.php?taxonomy=mcq_category&post_type=mcqs'); ?>" 
-                                   class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/80 transition-colors text-sm no-underline">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                    Add Categories
-                                </a>
-                            <?php endif; ?>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
+                <?php get_template_part('template-parts/sidebar/categories'); ?>
                 <?php endif; ?>
                 
             </div>

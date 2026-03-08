@@ -47,32 +47,47 @@
                         ?>
 
                         <?php if (!empty($options)) : ?>
-                            <div class="space-y-3 mcq-options mb-6">
+                            <div class="space-y-2.5 mcq-options mb-6">
                                 <?php
                                 $option_letters = array('A', 'B', 'C', 'D');
                                 foreach ($options as $index => $option) :
                                     if (!empty(trim($option))) :
                                         $is_correct = $correct_option === $option_letters[$index];
                                 ?>
-                                        <div class="mcq-option flex items-center p-4 rounded-lg border-2 <?php echo $is_correct ? 'border-green-500 bg-green-50 dark:bg-green-900/20' : 'border-gray-200 dark:border-gray-600'; ?> transition-all duration-200">
-                                            <div class="flex items-center space-x-3 flex-1">
-                                                <span class="font-semibold text-lg mr-2 <?php echo $is_correct ? 'text-green-700 dark:text-green-300' : 'text-gray-700 dark:text-gray-300'; ?>">
-                                                    <?php echo $option_letters[$index]; ?>.
-                                                </span>
-                                                <span class="<?php echo $is_correct ? 'text-green-700 dark:text-green-300' : 'text-gray-700 dark:text-gray-300'; ?>">
-                                                    <?php echo esc_html($option); ?>
-                                                </span>
-                                            </div>
-                                            <?php if ($is_correct) : ?>
-                                                <span class="text-green-500 font-bold text-xl">✓</span>
-                                            <?php endif; ?>
-                                        </div>
+                                <div class="mcq-option flex items-center gap-3 p-3.5 rounded-xl border-2 transition-all duration-200
+                                    <?php echo $is_correct ? 'mcq-correct border-emerald-400' : 'border-gray-200 dark:border-gray-600'; ?>"
+                                    <?php if ($is_correct) echo 'style="background: rgba(16,185,129,0.12); border-color: #10b981;"'; ?>
+                                    data-option-index="<?php echo $index; ?>"
+                                    data-mcq-id="<?php echo get_the_ID(); ?>">
+
+                                    <!-- Letter circle badge -->
+                                    <div class="shrink-0 w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm
+                                        <?php echo $is_correct ? 'bg-emerald-500 text-white' : 'bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-300'; ?>">
+                                        <?php echo $option_letters[$index]; ?>
+                                    </div>
+
+                                    <!-- Option text -->
+                                    <span class="flex-1 text-sm sm:text-base font-medium
+                                        <?php echo $is_correct ? 'text-emerald-700 dark:text-emerald-300 font-semibold' : 'text-gray-700 dark:text-gray-300'; ?>">
+                                        <?php echo esc_html($option); ?>
+                                    </span>
+
+                                    <!-- Correct SVG checkmark badge -->
+                                    <?php if ($is_correct) : ?>
+                                    <div class="shrink-0 w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                    </div>
+                                    <?php endif; ?>
+                                </div>
                                 <?php
                                     endif;
                                 endforeach;
                                 ?>
                             </div>
                         <?php endif; ?>
+
 
                         <?php if (!empty($explanation)) : ?>
                             <div class="mt-6 p-4 bg-primary/5 dark:bg-primary/10 border-l-4 border-primary rounded-r-lg">
@@ -86,12 +101,21 @@
                         <!-- Post Content Area -->
                         <?php if (!empty(get_the_content())) : ?>
                         <div class="mt-6 pt-6 border-t dark:border-gray-600">
-                            <h4 class="font-semibold text-gray-900 dark:text-white mb-4">📖 Additional Information</h4>
-                            <div class="prose prose-lg max-w-none dark:prose-invert prose-primary">
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10">
+                                    <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                    </svg>
+                                </span>
+                                <h4 class="font-semibold text-gray-900 dark:text-white text-sm tracking-wide uppercase">Additional Information</h4>
+                            </div>
+                            <div class="additional-info-content text-gray-700 dark:text-gray-300 leading-relaxed space-y-3 text-sm">
                                 <?php the_content(); ?>
                             </div>
                         </div>
                         <?php endif; ?>
+
 
                         <!-- Share Icons -->
                         <div class="mt-6 pt-6 border-t dark:border-gray-600">
@@ -362,67 +386,93 @@
         <div class="lg:col-span-1">
             <div class="sticky top-24 space-y-6">
                 <!-- Related MCQs -->
-                <?php if (get_post_type() === 'mcqs') : ?>
-                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border dark:border-gray-700">
-                        <h3 class="font-semibold text-gray-900 dark:text-white mb-4">🔗 Related MCQs</h3>
-                        <?php
-                        $categories = get_the_terms(get_the_ID(), 'mcq_category');
-                        if ($categories && !is_wp_error($categories)) :
-                            $category_ids = wp_list_pluck($categories, 'term_id');
-                            $related_mcqs = new WP_Query(array(
-                                'post_type' => 'mcqs',
-                                'post__not_in' => array(get_the_ID()),
-                                'tax_query' => array(
-                                    array(
-                                        'taxonomy' => 'mcq_category',
-                                        'field' => 'term_id',
-                                        'terms' => $category_ids,
-                                    ),
-                                ),
-                                'posts_per_page' => 5,
-                            ));
-                            if ($related_mcqs->have_posts()) : ?>
-                                <div class="space-y-3">
-                                    <?php while ($related_mcqs->have_posts()) : $related_mcqs->the_post(); ?>
-                                        <a href="<?php echo get_permalink(); ?>" class="block p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                            <div class="text-sm font-medium text-gray-900 dark:text-white">
-                                                <?php the_title(); ?>
-                                            </div>
-                                            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                                <?php echo get_the_date(); ?>
-                                            </div>
-                                        </a>
-                                    <?php endwhile; ?>
-                                </div>
-                        <?php
-                            else : echo '<p class="text-gray-500 dark:text-gray-400 text-sm">No related MCQs found.</p>';
-                            endif;
-                            wp_reset_postdata();
-                        endif;
-                        ?>
+                <?php if (get_post_type() === 'mcqs') :
+                    $categories    = get_the_terms(get_the_ID(), 'mcq_category');
+                    $category_ids  = ($categories && !is_wp_error($categories)) ? wp_list_pluck($categories, 'term_id') : [];
+                    $related_mcqs  = new WP_Query(array(
+                        'post_type'      => 'mcqs',
+                        'post__not_in'   => array(get_the_ID()),
+                        'posts_per_page' => 5,
+                        'orderby'        => 'rand',
+                        'tax_query'      => $category_ids ? array(array(
+                            'taxonomy' => 'mcq_category',
+                            'field'    => 'term_id',
+                            'terms'    => $category_ids,
+                        )) : '',
+                    ));
+                ?>
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+
+                    <!-- Header -->
+                    <div class="flex items-center gap-2 px-5 py-4 border-b border-gray-100 dark:border-gray-700">
+                        <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10">
+                            <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg>
+                        </span>
+                        <h3 class="font-semibold text-gray-900 dark:text-white text-sm tracking-wide uppercase">Related MCQs</h3>
                     </div>
+
+                    <?php if ($related_mcqs->have_posts()) : ?>
+                    <!-- Items -->
+                    <ul class="divide-y divide-gray-50 dark:divide-gray-700/60">
+                        <?php $rel_num = 1; while ($related_mcqs->have_posts()) : $related_mcqs->the_post();
+                            $rel_cats    = get_the_terms(get_the_ID(), 'mcq_category');
+                            $rel_cat_name = ($rel_cats && !is_wp_error($rel_cats)) ? $rel_cats[0]->name : '';
+                        ?>
+                        <li>
+                            <a href="<?php echo get_permalink(); ?>"
+                               class="group flex items-start gap-3 px-4 py-3.5 hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors duration-150 no-underline">
+                                <!-- Number badge -->
+                                <span class="shrink-0 mt-0.5 w-6 h-6 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-150">
+                                    <?php echo $rel_num; ?>
+                                </span>
+                                <!-- Content -->
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-800 dark:text-gray-100 group-hover:text-primary dark:group-hover:text-primary transition-colors duration-150 leading-snug line-clamp-2">
+                                        <?php the_title(); ?>
+                                    </p>
+                                    <div class="flex items-center gap-2 mt-1.5 flex-wrap">
+                                        <?php if ($rel_cat_name) : ?>
+                                        <span class="inline-block px-2 py-0.5 bg-primary/8 dark:bg-primary/15 text-primary text-xs rounded-full font-medium">
+                                            <?php echo esc_html($rel_cat_name); ?>
+                                        </span>
+                                        <?php endif; ?>
+                                        <span class="text-xs text-gray-400 dark:text-gray-500">
+                                            <?php echo get_the_date('M j, Y'); ?>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Arrow -->
+                                <svg class="shrink-0 w-3.5 h-3.5 text-gray-300 dark:text-gray-600 group-hover:text-primary group-hover:translate-x-0.5 transition-all duration-150 mt-1" 
+                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <?php $rel_num++; endwhile; wp_reset_postdata(); ?>
+                    </ul>
+
+                    <?php else : ?>
+                    <!-- Empty state -->
+                    <div class="flex flex-col items-center justify-center py-8 px-5 text-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mb-2.5">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">No related questions found</p>
+                    </div>
+                    <?php wp_reset_postdata(); endif; ?>
+
+                </div>
                 <?php endif; ?>
 
+
                 <!-- Categories -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border dark:border-gray-700">
-                    <h3 class="font-semibold text-gray-900 dark:text-white mb-4">📂 Categories</h3>
-                    <?php
-                    $taxonomy = get_post_type() === 'mcqs' ? 'mcq_category' : 'category';
-                    $categories = get_terms(array(
-                        'taxonomy' => $taxonomy,
-                        'hide_empty' => true,
-                    ));
-                    if ($categories && !is_wp_error($categories)) : ?>
-                        <div class="space-y-2">
-                            <?php foreach ($categories as $category) : ?>
-                                <a href="<?php echo get_term_link($category); ?>" class="flex justify-between items-center p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors">
-                                    <span class="text-gray-700 dark:text-gray-300"><?php echo esc_html($category->name); ?></span>
-                                    <span class="px-2 py-1 bg-primary text-white text-xs rounded-full"><?php echo $category->count; ?></span>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
+                <?php get_template_part('template-parts/sidebar/categories'); ?>
             </div>
         </div>
     </div>

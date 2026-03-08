@@ -75,15 +75,15 @@ function toggleLightDark() {
   if (isDark) {
     html.classList.remove("dark");
     localStorage.setItem("mode", "light");
-    modeIcon.textContent = "☀️";
-    modeText.textContent = "Switch to Dark";
+    if (modeIcon) modeIcon.textContent = "☀️";
+    if (modeText) modeText.textContent = "Switch to Dark";
   } else {
     html.classList.add("dark");
     localStorage.setItem("mode", "dark");
-    modeIcon.textContent = "🌙";
-    modeText.textContent = "Switch to Light";
+    if (modeIcon) modeIcon.textContent = "🌙";
+    if (modeText) modeText.textContent = "Switch to Light";
   }
-  themeDropdown.classList.add("hidden");
+  if (themeDropdown) themeDropdown.classList.add("hidden");
   document.body.style.transform = "scale(0.98)";
   setTimeout(() => {
     document.body.style.transform = "scale(1)";
@@ -96,7 +96,7 @@ function setColorTheme(theme) {
     `theme-${theme}`
   );
   localStorage.setItem("colorTheme", theme);
-  themeDropdown.classList.add("hidden");
+  if (themeDropdown) themeDropdown.classList.add("hidden");
   document.body.style.transform = "scale(0.98)";
   setTimeout(() => {
     document.body.style.transform = "scale(1)";
@@ -107,6 +107,8 @@ function initializeThemeUI() {
   const isDark = html.classList.contains("dark");
   const modeIcon = document.getElementById("modeIcon");
   const modeText = document.getElementById("modeText");
+  // Guard: theme toggle may have been removed from the header
+  if (!modeIcon || !modeText) return;
   if (isDark) {
     modeIcon.textContent = "🌙";
     modeText.textContent = "Switch to Light";

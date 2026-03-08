@@ -164,6 +164,24 @@ function boldmcqspro_output_dynamic_colors() {
             color: rgba(var(--cp), 0.80);
         }
 
+        /* ─── Additional Information / post content area ────────────────── */
+        /* Ensures links inside the_content() always use primary colour */
+        .additional-info-content a,
+        .additional-info-content a:link,
+        .additional-info-content a:visited {
+            color: rgb(var(--cp)) !important;
+            text-decoration: underline;
+        }
+        .additional-info-content a:hover {
+            color: rgba(var(--cp), 0.75) !important;
+        }
+        .additional-info-content h2,
+        .additional-info-content h3,
+        .additional-info-content h4,
+        .additional-info-content strong {
+            color: #111827;
+        }
+
         /* ─── 5. Menu Hover (override hardcoded Tailwind blue/green) ─────── */
         /* Any nav link that uses an explicit colour class gets overridden */
         .main-navigation a:hover {
