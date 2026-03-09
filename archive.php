@@ -7,85 +7,74 @@
             <!-- Breadcrumbs -->
             <?php boldmcqspro_breadcrumbs(); ?>
             
-            <!-- Archive Header -->
-            <div class="mb-6">
+            <!-- Archive Header - Clean & Professional -->
+            <div class="mb-8">
                 <?php if (is_category() || is_tag()) : ?>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold text-lg">
-                                <?php echo is_category() ? '📂' : '🏷️'; ?>
-                            </span>
-                        </div>
-                        <div>
-                            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                                <?php single_term_title(); ?>
-                            </h1>
-                            <p class="text-gray-600 dark:text-gray-400">
-                                <?php
-                                if (is_category()) {
-                                    echo esc_html(category_description());
-                                } elseif (is_tag()) {
-                                    echo esc_html(tag_description());
-                                }
-                                ?>
+                    <div class="mb-6">
+                        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+                            <?php single_term_title(); ?>
+                        </h1>
+                        <?php
+                        $description = is_category() ? category_description() : tag_description();
+                        if (!empty($description)) :
+                        ?>
+                            <p class="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                                <?php echo esc_html($description); ?>
                             </p>
-                        </div>
+                        <?php endif; ?>
                     </div>
                 <?php elseif (is_tax('mcq_category') || is_tax('mcq_tag')) : ?>
                     <?php $term = get_queried_object(); ?>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold text-lg">
-                                <?php echo is_tax('mcq_category') ? '📂' : '🏷️'; ?>
-                            </span>
-                        </div>
-                        <div>
-                            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                                <?php echo esc_html($term->name); ?>
-                            </h1>
-                            <?php if (!empty($term->description)) : ?>
-                                <p class="text-gray-600 dark:text-gray-400">
-                                    <?php echo esc_html($term->description); ?>
-                                </p>
-                            <?php endif; ?>
-                        </div>
+                    <div class="mb-6">
+                        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+                            <?php echo esc_html($term->name); ?>
+                        </h1>
+                        <?php if (!empty($term->description)) : ?>
+                            <p class="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                                <?php echo esc_html($term->description); ?>
+                            </p>
+                        <?php endif; ?>
                     </div>
                 <?php elseif (is_author()) : ?>
-                    <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
-                            <?php echo get_avatar(get_the_author_meta('ID'), 48, '', '', array('class' => 'rounded-lg')); ?>
-                        </div>
-                        <div>
-                            <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                                Posts by <?php the_author(); ?>
-                            </h1>
-                            <?php if (get_the_author_meta('description')) : ?>
-                                <p class="text-gray-600 dark:text-gray-400">
-                                    <?php echo esc_html(get_the_author_meta('description')); ?>
-                                </p>
-                            <?php endif; ?>
-                        </div>
+                    <div class="mb-6">
+                        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+                            Posts by <?php the_author(); ?>
+                        </h1>
+                        <?php if (get_the_author_meta('description')) : ?>
+                            <p class="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                                <?php echo esc_html(get_the_author_meta('description')); ?>
+                            </p>
+                        <?php endif; ?>
                     </div>
                 <?php elseif (is_date()) : ?>
-                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                        Archive for <?php echo get_the_date('F Y'); ?>
-                    </h1>
+                    <div class="mb-6">
+                        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+                            Archive for <?php echo get_the_date('F Y'); ?>
+                        </h1>
+                    </div>
                 <?php else : ?>
-                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-                        <?php post_type_archive_title(); ?>
-                    </h1>
+                    <div class="mb-6">
+                        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+                            <?php post_type_archive_title(); ?>
+                        </h1>
+                    </div>
                 <?php endif; ?>
 
-                <!-- Posts count -->
-                <div class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                    <?php
-                    global $wp_query;
-                    $total_posts = $wp_query->found_posts;
-                    printf(
-                        _n('%d question found', '%d questions found', $total_posts, 'boldmcqspro'),
-                        $total_posts
-                    );
-                    ?>
+                <!-- Posts count - Minimal Badge -->
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-700/50 rounded-full">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <?php
+                        global $wp_query;
+                        $total_posts = $wp_query->found_posts;
+                        printf(
+                            _n('%d Question', '%d Questions', $total_posts, 'boldmcqspro'),
+                            $total_posts
+                        );
+                        ?>
+                    </span>
                 </div>
             </div>
 
@@ -447,7 +436,12 @@
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_top_contributors', true)) : ?>
                 <!-- Top Contributors -->
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border dark:border-gray-700">
-                    <h3 class="font-semibold text-gray-900 dark:text-white mb-4">🏆 Top Contributors</h3>
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Top Contributors</h3>
+                    </div>
                     <div class="space-y-3">
                         <?php
                         // Get top contributors by MCQ count
@@ -462,7 +456,7 @@
                             ORDER BY mcq_count DESC
                             LIMIT 5"
                         );
-                        
+
                         if (!empty($top_contributors)) :
                             $gradient_classes = [
                                 'from-primary to-secondary',
@@ -471,7 +465,7 @@
                                 'from-green-500 to-blue-500',
                                 'from-indigo-500 to-purple-500'
                             ];
-                            
+
                             foreach ($top_contributors as $index => $contributor) :
                                 $initials = '';
                                 $name_parts = explode(' ', trim($contributor->display_name));

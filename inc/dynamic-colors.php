@@ -24,9 +24,20 @@
 
 function boldmcqspro_output_dynamic_colors() {
     // ── Read all color settings ────────────────────────────────────────────
-    $primary   = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_primary_color',   '#3B82F6' ) );
+    $primary   = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_primary_color',   '#02411c' ) );
     $secondary = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_secondary_color', '#10B981' ) );
     $accent    = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_accent_color',    '#F59E0B' ) );
+
+    // Semantic colors
+    $success   = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_success_color',   '#10B981' ) );
+    $error     = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_error_color',     '#EF4444' ) );
+    $warning   = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_warning_color',   '#F59E0B' ) );
+    $info      = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_info_color',      '#3B82F6' ) );
+
+    // UI state colors
+    $icon_color       = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_icon_color',        '' ) );
+    $icon_muted_color = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_icon_muted_color', '' ) );
+    $link_hover_color = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_link_hover_color', '' ) );
 
     // Background & surface colours (empty = use default theme styles)
     $body_bg      = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_body_bg_color',    '' ) );
@@ -48,13 +59,23 @@ function boldmcqspro_output_dynamic_colors() {
     $explain_btn_clr = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_explanation_btn_color',   '' ) );
     $quiz_btn_clr    = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_quiz_btn_color',          '' ) );
 
-    // Derived values
+    // Derived values (RGB conversions for use with rgba())
     $primary_rgb   = boldmcqspro_hex_to_rgb( $primary );
     $secondary_rgb = boldmcqspro_hex_to_rgb( $secondary );
     $accent_rgb    = boldmcqspro_hex_to_rgb( $accent );
+    $success_rgb   = boldmcqspro_hex_to_rgb( $success );
+    $error_rgb     = boldmcqspro_hex_to_rgb( $error );
+    $warning_rgb   = boldmcqspro_hex_to_rgb( $warning );
+    $info_rgb      = boldmcqspro_hex_to_rgb( $info );
 
-    $letter_css  = $letter_color  ? "color: {$letter_color} !important;"          : 'color: rgb(var(--cp)) !important;';
-    $correct_css = $correct_color ? "color: {$correct_color} !important;"         : 'color: rgb(var(--cs)) !important;';
+    // Conditional CSS for MCQ-specific elements
+    $letter_css  = $letter_color  ? "color: {$letter_color} !important;"  : 'color: rgb(var(--cp)) !important;';
+    $correct_css = $correct_color ? "color: {$correct_color} !important;" : 'color: rgb(var(--color-success)) !important;';
+
+    // Icon color CSS
+    $icon_css       = $icon_color       ? "color: {$icon_color} !important;"       : 'color: rgb(var(--cp)) !important;';
+    $icon_muted_css = $icon_muted_color ? "color: {$icon_muted_color} !important;" : 'color: #6B7280 !important;'; // gray-500
+    $link_hover_css = $link_hover_color ? "color: {$link_hover_color} !important;" : 'color: rgba(var(--cp), 0.80) !important;';
 
     ?>
     <!-- BoldMCQs Pro: Dynamic Color System -->
@@ -62,19 +83,27 @@ function boldmcqspro_output_dynamic_colors() {
 
         /* ─── 1. CSS Custom Properties ──────────────────────────────────── */
         :root {
-            /* Primary colour as R,G,B triplet (used in rgb() and rgba()) */
-            --cp: <?php echo esc_attr( $primary_rgb ); ?>;
-            /* Secondary colour */
-            --cs: <?php echo esc_attr( $secondary_rgb ); ?>;
-            /* Accent colour */
-            --ca: <?php echo esc_attr( $accent_rgb ); ?>;
+            /* ═══ Main Brand Colors (RGB format) ═══ */
+            --cp: <?php echo esc_attr( $primary_rgb ); ?>;   /* Primary */
+            --cs: <?php echo esc_attr( $secondary_rgb ); ?>; /* Secondary */
+            --ca: <?php echo esc_attr( $accent_rgb ); ?>;    /* Accent */
 
-            /* Full hex values for places that need them */
+            /* ═══ Semantic Colors (RGB format) ═══ */
+            --color-success: <?php echo esc_attr( $success_rgb ); ?>;  /* Success/Correct */
+            --color-error:   <?php echo esc_attr( $error_rgb ); ?>;    /* Error/Wrong */
+            --color-warning: <?php echo esc_attr( $warning_rgb ); ?>;  /* Warning/Alert */
+            --color-info:    <?php echo esc_attr( $info_rgb ); ?>;     /* Info/Help */
+
+            /* ═══ Full hex values for places that need them ═══ */
             --color-primary-hex:   <?php echo esc_attr( $primary ); ?>;
             --color-secondary-hex: <?php echo esc_attr( $secondary ); ?>;
             --color-accent-hex:    <?php echo esc_attr( $accent ); ?>;
+            --color-success-hex:   <?php echo esc_attr( $success ); ?>;
+            --color-error-hex:     <?php echo esc_attr( $error ); ?>;
+            --color-warning-hex:   <?php echo esc_attr( $warning ); ?>;
+            --color-info-hex:      <?php echo esc_attr( $info ); ?>;
 
-            /* Legacy aliases kept for any JS / third-party code */
+            /* ═══ Legacy aliases (backward compatibility) ═══ */
             --color-primary:   var(--cp);
             --color-secondary: var(--cs);
             --color-accent:    var(--ca);
@@ -155,6 +184,48 @@ function boldmcqspro_output_dynamic_colors() {
         .from-accent     { --tw-gradient-from: rgb(var(--ca)); }
         .to-accent       { --tw-gradient-to:   rgb(var(--ca)); }
         .from-accent\/20 { --tw-gradient-from: rgba(var(--ca), 0.20); }
+
+        /* ─── 4a. Semantic Color Utilities (Success, Error, Warning, Info) ── */
+
+        /* Success (Correct answers, confirmations) */
+        .bg-success              { background-color: rgb(var(--color-success)) !important; }
+        .text-success            { color:            rgb(var(--color-success)) !important; }
+        .border-success          { border-color:     rgb(var(--color-success)) !important; }
+        .hover\:bg-success:hover    { background-color: rgb(var(--color-success)) !important; }
+        .hover\:text-success:hover  { color:            rgb(var(--color-success)) !important; }
+        .bg-success\/10  { background-color: rgba(var(--color-success), 0.10) !important; }
+        .bg-success\/20  { background-color: rgba(var(--color-success), 0.20) !important; }
+        .bg-success\/80  { background-color: rgba(var(--color-success), 0.80) !important; }
+
+        /* Error / Danger (Wrong answers, errors, destructive) */
+        .bg-error              { background-color: rgb(var(--color-error)) !important; }
+        .text-error            { color:            rgb(var(--color-error)) !important; }
+        .border-error          { border-color:     rgb(var(--color-error)) !important; }
+        .hover\:bg-error:hover    { background-color: rgb(var(--color-error)) !important; }
+        .hover\:text-error:hover  { color:            rgb(var(--color-error)) !important; }
+        .bg-error\/10  { background-color: rgba(var(--color-error), 0.10) !important; }
+        .bg-error\/20  { background-color: rgba(var(--color-error), 0.20) !important; }
+        .bg-error\/80  { background-color: rgba(var(--color-error), 0.80) !important; }
+
+        /* Warning (Alerts, cautions) */
+        .bg-warning              { background-color: rgb(var(--color-warning)) !important; }
+        .text-warning            { color:            rgb(var(--color-warning)) !important; }
+        .border-warning          { border-color:     rgb(var(--color-warning)) !important; }
+        .hover\:bg-warning:hover    { background-color: rgb(var(--color-warning)) !important; }
+        .hover\:text-warning:hover  { color:            rgb(var(--color-warning)) !important; }
+        .bg-warning\/10  { background-color: rgba(var(--color-warning), 0.10) !important; }
+        .bg-warning\/20  { background-color: rgba(var(--color-warning), 0.20) !important; }
+        .bg-warning\/80  { background-color: rgba(var(--color-warning), 0.80) !important; }
+
+        /* Info (Informational messages, tips, help) */
+        .bg-info              { background-color: rgb(var(--color-info)) !important; }
+        .text-info            { color:            rgb(var(--color-info)) !important; }
+        .border-info          { border-color:     rgb(var(--color-info)) !important; }
+        .hover\:bg-info:hover    { background-color: rgb(var(--color-info)) !important; }
+        .hover\:text-info:hover  { color:            rgb(var(--color-info)) !important; }
+        .bg-info\/10  { background-color: rgba(var(--color-info), 0.10) !important; }
+        .bg-info\/20  { background-color: rgba(var(--color-info), 0.20) !important; }
+        .bg-info\/80  { background-color: rgba(var(--color-info), 0.80) !important; }
 
         /* ─── 5. Link Colours ───────────────────────────────────────────── */
         a:not([class]) {
@@ -372,15 +443,23 @@ add_action( 'wp_head', 'boldmcqspro_output_dynamic_colors', 5 );
  * so it appears before the CDN script.
  */
 function boldmcqspro_output_tailwind_config() {
-    $primary   = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_primary_color',   '#3B82F6' ) );
+    $primary   = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_primary_color',   '#02411c' ) );
     $secondary = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_secondary_color', '#10B981' ) );
     $accent    = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_accent_color',    '#F59E0B' ) );
+    $success   = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_success_color',   '#10B981' ) );
+    $error     = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_error_color',     '#EF4444' ) );
+    $warning   = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_warning_color',   '#F59E0B' ) );
+    $info      = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_info_color',      '#3B82F6' ) );
     ?>
     <script id="boldmcqspro-tailwind-config">
         window._boldmcqsColors = {
             primary:   '<?php echo esc_js( $primary ); ?>',
             secondary: '<?php echo esc_js( $secondary ); ?>',
             accent:    '<?php echo esc_js( $accent ); ?>',
+            success:   '<?php echo esc_js( $success ); ?>',
+            error:     '<?php echo esc_js( $error ); ?>',
+            warning:   '<?php echo esc_js( $warning ); ?>',
+            info:      '<?php echo esc_js( $info ); ?>',
         };
         // Apply config immediately if Tailwind CDN is already loaded, or wait
         function _applyBoldMCQsTailwindConfig() {
@@ -392,6 +471,10 @@ function boldmcqspro_output_tailwind_config() {
                                 primary:   window._boldmcqsColors.primary,
                                 secondary: window._boldmcqsColors.secondary,
                                 accent:    window._boldmcqsColors.accent,
+                                success:   window._boldmcqsColors.success,
+                                error:     window._boldmcqsColors.error,
+                                warning:   window._boldmcqsColors.warning,
+                                info:      window._boldmcqsColors.info,
                             }
                         }
                     }

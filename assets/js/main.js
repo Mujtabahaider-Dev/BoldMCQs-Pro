@@ -534,8 +534,8 @@ function startQuizMode() {
   
   if (quizModeBtn) {
     // Update button text and styling
-    quizModeBtn.textContent = "📝 Practice Mode";
-    quizModeBtn.className = "w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base";
+    quizModeBtn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> Practice Mode';
+    quizModeBtn.className = "w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base";
   }
   
   updateQuizDisplay();
@@ -560,8 +560,8 @@ function exitQuizMode() {
   
   if (quizModeBtn) {
     // Update button text and styling
-    quizModeBtn.textContent = "🎯 Start Quiz Mode";
-    quizModeBtn.className = "w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-secondary to-primary text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base";
+    quizModeBtn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> Start Quiz Mode';
+    quizModeBtn.className = "w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-secondary to-primary text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base";
   }
   
   // Reset all MCQs to clean practice state
@@ -620,8 +620,8 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       if (quizModeBtn) {
-        quizModeBtn.textContent = "📝 Practice Mode";
-        quizModeBtn.className = "w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base";
+        quizModeBtn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg> Practice Mode';
+        quizModeBtn.className = "w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base";
       }
     }
     

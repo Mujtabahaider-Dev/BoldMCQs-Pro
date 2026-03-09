@@ -90,11 +90,20 @@
 
 
                         <?php if (!empty($explanation)) : ?>
-                            <div class="mt-6 p-4 bg-primary/5 dark:bg-primary/10 border-l-4 border-primary rounded-r-lg">
-                                <h4 class="font-semibold text-gray-900 dark:text-white mb-2">📝 Explanation</h4>
-                                <p class="text-gray-700 dark:text-gray-300">
-                                    <?php echo wp_kses_post($explanation); ?>
-                                </p>
+                            <div id="mcq-explanation" class="mcq-explanation-section mt-6 p-5 bg-blue-50/50 dark:bg-blue-900/20 border-l-4 border-blue-500 rounded-r-lg">
+                                <div class="flex items-start gap-3">
+                                    <div class="shrink-0 w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center">
+                                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-gray-900 dark:text-white mb-2 text-lg">Explanation</h4>
+                                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                                            <?php echo wp_kses_post($explanation); ?>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         <?php endif; ?>
 
@@ -119,7 +128,12 @@
 
                         <!-- Share Icons -->
                         <div class="mt-6 pt-6 border-t dark:border-gray-600">
-                            <h4 class="font-semibold text-gray-900 dark:text-white mb-4">🔗 Share This Question</h4>
+                            <div class="flex items-center gap-2 mb-4">
+                                <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                                </svg>
+                                <h4 class="font-semibold text-gray-900 dark:text-white">Share This Question</h4>
+                            </div>
                             <div class="flex flex-wrap items-center gap-3">
                                 <?php
                                 $post_url = get_permalink();
@@ -183,7 +197,12 @@
 
                     <!-- Enhanced Navigation to other MCQs -->
                     <div class="mt-8">
-                        <h4 class="font-semibold text-gray-900 dark:text-white mb-4">🧭 Navigate Questions</h4>
+                        <div class="flex items-center gap-2 mb-4">
+                            <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                            </svg>
+                            <h4 class="font-semibold text-gray-900 dark:text-white">Navigate Questions</h4>
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <?php
                         $prev_post = get_previous_post(false, '', 'mcq_category');
@@ -305,8 +324,18 @@
                                 <?php the_title(); ?>
                             </h1>
                             <div class="flex items-center space-x-4 mt-4 text-sm text-gray-500 dark:text-gray-400">
-                                <span>👤 <?php echo esc_html(get_the_author()); ?></span>
-                                <span>💬 <?php comments_number('0 Comments', '1 Comment', '% Comments'); ?></span>
+                                <span class="flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                    <?php echo esc_html(get_the_author()); ?>
+                                </span>
+                                <span class="flex items-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+                                    </svg>
+                                    <?php comments_number('0 Comments', '1 Comment', '% Comments'); ?>
+                                </span>
                             </div>
                         </header>
 
