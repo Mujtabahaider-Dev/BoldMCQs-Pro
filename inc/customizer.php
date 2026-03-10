@@ -1046,15 +1046,43 @@ function boldmcqspro_customize_register($wp_customize) {
     )));
 
     // ══════════════════════════════════════════════════════════
-    // GROUP 4 ▸ BUTTON COLORS
+    // GROUP 4 ▸ BUTTON STYLES & COLORS
     // ══════════════════════════════════════════════════════════
 
     $wp_customize->add_setting('_sep_btns', array('sanitize_callback' => '__return_false'));
     $wp_customize->add_control(new BoldMCQs_Separator_Control($wp_customize, '_sep_btns', array(
-        'label'       => '🔘  Button Colors',
-        'description' => 'Override individual button colors. Empty = uses Brand Colors.',
+        'label'       => '🔘  Button Styles',
+        'description' => 'Global shape and color settings for all theme buttons.',
         'section'     => 'boldmcqspro_colors',
         'priority'    => 40,
+    )));
+
+    // Button Rounding
+    $wp_customize->add_setting('boldmcqspro_btn_rounding', array(
+        'default'           => '12',
+        'sanitize_callback' => 'absint',
+        'transport'         => 'postMessage',
+    ));
+    $wp_customize->add_control('boldmcqspro_btn_rounding', array(
+        'label'       => __('Button Rounding (px)', 'boldmcqspro'),
+        'description' => __('Corner radius for all buttons.', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_colors',
+        'type'        => 'range',
+        'input_attrs' => array('min' => 0, 'max' => 50, 'step' => 2),
+        'priority'    => 41,
+    ));
+
+    // Primary Button Color Override
+    $wp_customize->add_setting('boldmcqspro_btn_primary_color', array(
+        'default'           => '',
+        'sanitize_callback' => 'sanitize_hex_color',
+        'transport'         => 'postMessage',
+    ));
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_btn_primary_color', array(
+        'label'       => __('General Primary Button', 'boldmcqspro'),
+        'description' => __('Background for general primary buttons. Empty = Primary Brand Color.', 'boldmcqspro'),
+        'section'     => 'boldmcqspro_colors',
+        'priority'    => 42,
     )));
 
     // Quiz Mode Button Color
@@ -1064,10 +1092,10 @@ function boldmcqspro_customize_register($wp_customize) {
         'transport'         => 'postMessage',
     ));
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_quiz_btn_color', array(
-        'label'       => __('Quiz Mode Button', 'boldmcqspro'),
-        'description' => __('"Start Quiz Mode" button. Empty = Primary Color.', 'boldmcqspro'),
+        'label'       => __('Quiz Mode Button (Unique)', 'boldmcqspro'),
+        'description' => __('"Start Quiz" specifically. Empty = uses Primary Button Color.', 'boldmcqspro'),
         'section'     => 'boldmcqspro_colors',
-        'priority'    => 41,
+        'priority'    => 43,
     )));
 
     // Explanation Button Color
@@ -1075,12 +1103,13 @@ function boldmcqspro_customize_register($wp_customize) {
         'default'           => '',
         'sanitize_callback' => 'sanitize_hex_color',
         'transport'         => 'postMessage',
+        'priority'    => 44,
     ));
     $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'boldmcqspro_explanation_btn_color', array(
-        'label'       => __('Explanation Button', 'boldmcqspro'),
-        'description' => __('"Show Explanation" button. Empty = Accent Color.', 'boldmcqspro'),
+        'label'       => __('Explanation Button (Unique)', 'boldmcqspro'),
+        'description' => __('"Show Explanation" specifically. Empty = uses Accent Color.', 'boldmcqspro'),
         'section'     => 'boldmcqspro_colors',
-        'priority'    => 42,
+        'priority'    => 45,
     )));
 
 

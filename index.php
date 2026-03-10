@@ -12,7 +12,7 @@
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white"><?php echo esc_html(boldmcqspro_get_option('boldmcqspro_homepage_mcqs_title', 'Practice Questions')); ?></h1>
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_quiz_mode_btn', true)) : ?>
                 <button id="quizModeBtn"
-                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-primary quiz-mode-btn text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base">
+                    class="btn-base btn-full btn-primary quiz-mode-btn">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                     </svg>
@@ -30,7 +30,7 @@
                         </p>
                     </div>
                     <button id="exitQuizBtn"
-                        class="w-full sm:w-auto px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm sm:text-base">
+                        class="btn-base btn-full btn-danger">
                         Exit Quiz
                     </button>
                 </div>
@@ -219,7 +219,7 @@
                     <p class="text-gray-500 dark:text-gray-400 mb-6">There are no quiz questions available at the moment.</p>
                     <?php if (current_user_can('publish_posts')) : ?>
                     <a href="<?php echo admin_url('post-new.php?post_type=mcqs'); ?>" 
-                       class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/80 transition-colors no-underline">
+                       class="btn-base btn-primary">
                         <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>
@@ -329,7 +329,7 @@
                                        max="<?php echo $total_pages; ?>"
                                        class="w-16 px-2 py-1 border dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-center text-gray-700 dark:text-gray-300">
                                 <button type="submit"
-                                        class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-gray-700 dark:text-gray-300">
+                                        class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-gray-700 dark:text-gray-300">
                                     Go
                                 </button>
                             </form>

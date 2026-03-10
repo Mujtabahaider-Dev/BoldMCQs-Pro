@@ -109,7 +109,7 @@ if (!empty($search_query)) {
                 <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white"><?php echo esc_html(boldmcqspro_get_option('boldmcqspro_homepage_mcqs_title', 'Practice Questions')); ?></h2>
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_quiz_mode_btn', true)) : ?>
                 <button id="quizModeBtn"
-                    class="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-primary quiz-mode-btn text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base">
+                    class="btn-base btn-full btn-primary quiz-mode-btn">
                     🎯 Start Quiz Mode
                 </button>
                 <?php endif; ?>
@@ -125,7 +125,7 @@ if (!empty($search_query)) {
                         </p>
                     </div>
                     <button id="exitQuizBtn"
-                        class="w-full sm:w-auto px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm sm:text-base">
+                        class="btn-base btn-full btn-danger">
                         Exit Quiz
                     </button>
                 </div>

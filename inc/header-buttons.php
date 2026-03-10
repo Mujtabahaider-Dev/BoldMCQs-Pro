@@ -38,33 +38,29 @@ function boldmcqspro_render_header_button($button_num) {
     
     // Build classes based on size
     $size_classes = array(
-        'small'  => 'px-3 py-1.5 text-sm',
-        'medium' => 'px-4 py-2 text-base',
-        'large'  => 'px-6 py-3 text-lg',
+        'small'  => 'btn-sm',
+        'medium' => '',
+        'large'  => 'btn-lg',
     );
-    $base_classes = $size_classes[$size] ?? $size_classes['medium'];
+    $size_class = $size_classes[$size] ?? '';
     
     // Build style-specific classes and inline styles
+    $final_classes = array('btn-base', $size_class);
     $inline_style = '';
-    $hover_class = '';
     
     if ($style === 'solid') {
         $inline_style = "background-color: {$bg_color}; color: {$text_color};";
-        $hover_class = 'hover:opacity-90';
     } elseif ($style === 'outline') {
-        $inline_style = "border: 2px solid {$bg_color}; color: {$bg_color};";
-        $hover_class = 'hover:opacity-80';
+        $inline_style = "border: 2px solid {$bg_color} !important; color: {$bg_color}; background-color: transparent;";
     } else { // ghost
-        $inline_style = "color: {$bg_color};";
-        $hover_class = 'hover:opacity-70';
+        $inline_style = "color: {$bg_color}; background-color: transparent; border: none;";
     }
     
     // Build final button HTML
     return sprintf(
-        '<a href="%s" class="%s %s rounded-lg font-medium transition-all duration-200" style="%s">%s</a>',
+        '<a href="%s" class="%s" style="%s">%s</a>',
         esc_url($url),
-        esc_attr($base_classes),
-        esc_attr($hover_class),
+        implode(' ', array_filter($final_classes)),
         esc_attr($inline_style),
         esc_html($text)
     );
@@ -113,20 +109,20 @@ function boldmcqspro_render_auth_buttons() {
     
     if (is_user_logged_in()) : ?>
         <a href="<?php echo esc_url(wp_logout_url(home_url('/'))); ?>"
-            class="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
+            class="btn-base btn-ghost">
             <?php echo esc_html($logout_text); ?>
         </a>
         <a href="<?php echo esc_url(admin_url()); ?>"
-            class="px-4 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition-all">
+            class="btn-base btn-primary">
             <?php echo esc_html($dashboard_text); ?>
         </a>
     <?php else : ?>
         <a href="<?php echo esc_url(wp_login_url(get_permalink())); ?>"
-            class="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
+            class="btn-base btn-ghost">
             <?php echo esc_html($login_text); ?>
         </a>
         <a href="<?php echo esc_url(wp_registration_url()); ?>"
-            class="px-4 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition-all">
+            class="btn-base btn-primary">
             <?php echo esc_html($register_text); ?>
         </a>
     <?php endif;
@@ -151,7 +147,7 @@ function boldmcqspro_render_legacy_header_button() {
     $secondary_color = boldmcqspro_get_option('boldmcqspro_secondary_color', '#10B981');
     
     return sprintf(
-        '<a href="%s" class="px-4 py-2 bg-secondary text-white rounded-lg hover:opacity-90 transition-all">%s</a>',
+        '<a href="%s" class="btn-base btn-secondary">%s</a>',
         esc_url($link),
         esc_html($text)
     );

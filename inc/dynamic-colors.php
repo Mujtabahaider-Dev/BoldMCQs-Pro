@@ -58,6 +58,8 @@ function boldmcqspro_output_dynamic_colors() {
     $mcq_hover       = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_mcq_hover_color',         '' ) );
     $explain_btn_clr = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_explanation_btn_color',   '' ) );
     $quiz_btn_clr    = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_quiz_btn_color',          '' ) );
+    $btn_rounding    = boldmcqspro_get_option( 'boldmcqspro_btn_rounding', '12' );
+    $btn_primary_bg  = sanitize_hex_color( boldmcqspro_get_option( 'boldmcqspro_btn_primary_color', '' ) );
 
     // Derived values (RGB conversions for use with rgba())
     $primary_rgb   = boldmcqspro_hex_to_rgb( $primary );
@@ -314,6 +316,26 @@ function boldmcqspro_output_dynamic_colors() {
         <?php if ( $quiz_btn_clr ) : ?>
         .quiz-mode-btn {
             background-color: <?php echo esc_attr( $quiz_btn_clr ); ?> !important;
+        }
+        <?php endif; ?>
+
+        /* ─── 7. Global Button Styles ─────────────────────────────────── */
+        
+        /* Global Rounding */
+        .btn-base,
+        .mcq-option,
+        .rounded-xl {
+            border-radius: <?php echo intval( $btn_rounding ); ?>px !important;
+        }
+
+        /* Primary Button Color Override */
+        <?php if ( $btn_primary_bg ) : ?>
+        .btn-primary {
+            background-color: <?php echo esc_attr( $btn_primary_bg ); ?> !important;
+        }
+        .btn-primary:hover {
+            background-color: <?php echo esc_attr( $btn_primary_bg ); ?> !important;
+            opacity: 0.9;
         }
         <?php endif; ?>
 
