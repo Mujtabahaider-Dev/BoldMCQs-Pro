@@ -415,6 +415,7 @@
         <div class="lg:col-span-1">
             <div class="sticky top-24 space-y-6">
                 <!-- Related MCQs -->
+                <!-- Related MCQs -->
                 <?php if (get_post_type() === 'mcqs') :
                     $categories    = get_the_terms(get_the_ID(), 'mcq_category');
                     $category_ids  = ($categories && !is_wp_error($categories)) ? wp_list_pluck($categories, 'term_id') : [];

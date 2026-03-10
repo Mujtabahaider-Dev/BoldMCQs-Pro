@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Typography Functions
  * Handle Google Fonts loading and custom typography CSS

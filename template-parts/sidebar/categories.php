@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Sidebar – Categories Widget
  * Reused on index.php, archive.php, single.php, search.php

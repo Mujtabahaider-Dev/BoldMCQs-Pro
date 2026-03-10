@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // Register widget areas
 function boldmcqspro_register_widgets() {
     // Header Widget Area

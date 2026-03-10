@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // Register navigation menus
 function boldmcqspro_register_nav_menus() {
     register_nav_menus(array(

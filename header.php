@@ -5,241 +5,6 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <style id="boldmcqspro-responsive">
-
-        /* === Menu Styles (from Customizer) === */
-        <?php
-        $menu_style       = boldmcqspro_get_option('boldmcqspro_menu_style', 'default');
-        $menu_hover_effect = boldmcqspro_get_option('boldmcqspro_menu_hover_effect', 'underline');
-        if ($menu_style === 'minimal') : ?>
-        .main-navigation a { font-weight:400 !important; padding:.5rem .75rem !important; border-radius:.25rem !important; }
-        <?php endif; ?>
-        <?php if ($menu_style === 'bold') : ?>
-        .main-navigation a { font-weight:600 !important; padding:.75rem 1rem !important; border-radius:.5rem !important; text-transform:uppercase !important; letter-spacing:.05em !important; }
-        <?php endif; ?>
-        <?php if ($menu_hover_effect === 'underline') : ?>
-        .main-navigation a:hover { text-decoration:underline !important; text-decoration-color:rgb(var(--cp)) !important; text-underline-offset:4px !important; }
-        <?php endif; ?>
-        <?php if ($menu_hover_effect === 'background') : ?>
-        .main-navigation a:hover { background-color:rgb(var(--cp)) !important; color:#fff !important; }
-        <?php endif; ?>
-        <?php if ($menu_hover_effect === 'scale') : ?>
-        .main-navigation a:hover { transform:scale(1.05) !important; transition:transform .2s ease-in-out !important; }
-        <?php endif; ?>
-        <?php if ($menu_hover_effect === 'none') : ?>
-        .main-navigation a:hover { text-decoration:none !important; background-color:transparent !important; transform:none !important; }
-        <?php endif; ?>
-
-        .theme-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-
-
-        
-        /* Mobile First Approach - Base styles for mobile */
-        @media (max-width: 640px) {
-            /* Container adjustments */
-            .max-w-7xl {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            
-            /* MCQ Cards on mobile */
-            .mcq-card {
-                padding: 1rem !important;
-                margin-bottom: 1rem !important;
-                border-radius: 0.75rem !important;
-            }
-            
-            .mcq-option {
-                padding: 0.75rem !important;
-                font-size: 0.9rem;
-                flex-wrap: wrap;
-            }
-            
-            .mcq-option .practice-letter {
-                min-width: 1.5rem;
-                font-size: 0.875rem;
-            }
-            
-            /* Typography adjustments */
-            h1 {
-                font-size: 1.5rem !important;
-                line-height: 2rem !important;
-            }
-            
-            h3 {
-                font-size: 1.125rem !important;
-                line-height: 1.5rem !important;
-            }
-            
-            /* Button adjustments */
-            .btn, button {
-                padding: 0.75rem 1rem !important;
-                font-size: 0.875rem !important;
-            }
-            
-            /* Quiz banner on mobile */
-            #quizBanner {
-                padding: 1rem !important;
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-            
-            #quizBanner .flex {
-                flex-direction: column;
-                align-items: flex-start !important;
-            }
-            
-            /* Pagination on mobile */
-            .pagination-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .pagination-numbers {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            /* Search input on mobile */
-            .search-input {
-                font-size: 16px !important; /* Prevents zoom on iOS */
-            }
-            
-            /* Sticky sidebar adjustment */
-            .sticky {
-                position: static !important;
-            }
-        }
-        
-        /* Tablet styles */
-        @media (min-width: 641px) and (max-width: 1024px) {
-            .mcq-card {
-                padding: 1.25rem !important;
-            }
-            
-            .mcq-option {
-                padding: 0.875rem !important;
-            }
-            
-            /* Grid adjustments for tablet */
-            .tablet-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            /* Sidebar on tablet */
-            .sidebar-tablet {
-                order: -1; /* Put sidebar before main content */
-                margin-bottom: 2rem;
-            }
-        }
-        
-        /* Large mobile / small tablet landscape */
-        @media (min-width: 641px) and (max-width: 768px) {
-            .header-buttons {
-                flex-wrap: wrap;
-                gap: 0.5rem;
-            }
-            
-            .header-buttons a, 
-            .header-buttons button {
-                padding: 0.5rem 1rem !important;
-                font-size: 0.8rem !important;
-            }
-        }
-        
-        /* Desktop and larger screens */
-        @media (min-width: 1025px) {
-            /* Enhanced hover effects for desktop */
-            .mcq-card:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            }
-            
-            .mcq-option:hover {
-                transform: translateX(4px);
-            }
-        }
-        
-        /* Print styles */
-        @media print {
-            .no-print,
-            #quizModeBtn,
-            #quizBanner,
-            .sidebar,
-            .pagination-container,
-            button {
-                display: none !important;
-            }
-            
-            .mcq-card {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-            
-            .mcq-option {
-                padding: 0.5rem !important;
-                border: 1px solid #ccc !important;
-            }
-        }
-        
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            .mcq-option {
-                border-width: 2px !important;
-            }
-            
-            .mcq-card {
-                border-width: 2px !important;
-            }
-        }
-        
-        /* Reduced motion support */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-            
-            .mcq-card:hover,
-            .mcq-option:hover {
-                transform: none !important;
-            }
-        }
-        
-        /* Touch device optimizations */
-        @media (hover: none) and (pointer: coarse) {
-            .mcq-option {
-                min-height: 3rem; /* Larger touch targets */
-                padding: 1rem !important;
-            }
-            
-            button, .btn {
-                min-height: 2.75rem;
-                padding: 0.75rem 1.5rem !important;
-            }
-            
-            /* Remove hover effects on touch devices */
-            .mcq-option:hover {
-                transform: none;
-                border-color: inherit;
-            }
-        }
-        
-        /* Landscape phone adjustments */
-        @media screen and (max-height: 500px) and (orientation: landscape) {
-            .sticky {
-                position: static !important;
-            }
-            
-            .max-w-7xl {
-                padding-top: 1rem !important;
-                padding-bottom: 1rem !important;
-            }
-        }
-    </style>
     <?php wp_head(); ?>
 </head>
 
@@ -258,13 +23,13 @@ $header_style        = $header_bg ? 'background-color:' . esc_attr($header_bg) .
     <!-- Header -->
     <header
         class="<?php echo esc_attr($header_position); ?> bg-white dark:bg-gray-800 <?php echo esc_attr($header_shadow_class); ?> border-b dark:border-gray-700 transition-colors duration-300"
-        style="<?php echo $header_style; ?>">
+        style="<?php echo esc_attr($header_style); ?>">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center" style="height:<?php echo $header_height; ?>px;">
+            <div class="flex justify-between items-center" style="height:<?php echo absint($header_height); ?>px;">
                 <?php get_template_part('template-parts/header/site-branding'); ?>
                 <!-- Navigation -->
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_primary_menu', true)) : ?>
-                <nav class="main-navigation hidden <?php echo boldmcqspro_get_option('boldmcqspro_mobile_menu_breakpoint', 'md'); ?>:flex items-center space-x-2">
+                <nav class="main-navigation hidden <?php echo esc_attr(boldmcqspro_get_option('boldmcqspro_mobile_menu_breakpoint', 'md')); ?>:flex items-center space-x-2">
                     <?php
                     if (has_nav_menu('primary')) {
                         wp_nav_menu(array(
@@ -298,7 +63,7 @@ $header_style        = $header_bg ? 'background-color:' . esc_attr($header_bg) .
                 <?php endif; ?>
                 <!-- Mobile Menu Button -->
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_mobile_menu', true)) : ?>
-                <div class="<?php echo boldmcqspro_get_option('boldmcqspro_mobile_menu_breakpoint', 'md'); ?>:hidden">
+                <div class="<?php echo esc_attr(boldmcqspro_get_option('boldmcqspro_mobile_menu_breakpoint', 'md')); ?>:hidden">
                     <button id="mobileMenuToggle" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-colors">
                         <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -321,7 +86,7 @@ $header_style        = $header_bg ? 'background-color:' . esc_attr($header_bg) .
 
     <!-- Mobile Menu -->
     <?php if (boldmcqspro_get_option('boldmcqspro_show_mobile_menu', true)) : ?>
-    <div id="mobileMenu" class="hidden <?php echo boldmcqspro_get_option('boldmcqspro_mobile_menu_breakpoint', 'md'); ?>:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700 shadow-lg">
+    <div id="mobileMenu" class="hidden <?php echo esc_attr(boldmcqspro_get_option('boldmcqspro_mobile_menu_breakpoint', 'md')); ?>:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700 shadow-lg">
         <div class="px-4 pt-2 pb-3 space-y-1">
             <?php
             if (has_nav_menu('mobile') || has_nav_menu('primary')) {

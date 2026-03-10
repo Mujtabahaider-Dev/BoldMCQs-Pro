@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // Theme Customizer Settings
 function boldmcqspro_customize_register($wp_customize) {
 
@@ -756,38 +757,207 @@ function boldmcqspro_customize_register($wp_customize) {
         'priority'    => 60,
     ));
 
+    // Footer Column Count
+    $wp_customize->add_setting('boldmcqspro_footer_columns', array(
+        'default' => 4,
+        'sanitize_callback' => 'absint',
+        'transport' => 'refresh',
+    ));
 
- // Footer Column Count
- $wp_customize->add_setting('boldmcqspro_footer_columns', array(
- 'default' => 4,
- 'sanitize_callback' => 'absint',
- 'transport' => 'refresh',
- ));
+    $wp_customize->add_control('boldmcqspro_footer_columns', array(
+        'label' => __('Footer Columns', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'select',
+        'choices' => array(
+            1 => __('1 Column', 'boldmcqspro'),
+            2 => __('2 Columns', 'boldmcqspro'),
+            3 => __('3 Columns', 'boldmcqspro'),
+            4 => __('4 Columns', 'boldmcqspro'),
+        ),
+    ));
 
- $wp_customize->add_control('boldmcqspro_footer_columns', array(
- 'label' => __('Footer Columns', 'boldmcqspro'),
- 'section' => 'boldmcqspro_footer',
- 'type' => 'select',
- 'choices' => array(
- 1 => __('1 Column', 'boldmcqspro'),
- 2 => __('2 Columns', 'boldmcqspro'),
- 3 => __('3 Columns', 'boldmcqspro'),
- 4 => __('4 Columns', 'boldmcqspro'),
- ),
- ));
+    // Footer Copyright Text
+    $wp_customize->add_setting('boldmcqspro_footer_copyright', array(
+        'default' => '© {year} BoldMcqs Pro. All rights reserved.',
+        'sanitize_callback' => 'wp_kses_post',
+        'transport' => 'refresh',
+    ));
 
- // Footer Copyright Text
- $wp_customize->add_setting('boldmcqspro_footer_copyright', array(
- 'default' => ' 2025 BoldMcqs Pro. All rights reserved.',
- 'sanitize_callback' => 'wp_kses_post',
- 'transport' => 'refresh',
- ));
+    $wp_customize->add_control('boldmcqspro_footer_copyright', array(
+        'label' => __('Copyright Text', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'textarea',
+    ));
 
- $wp_customize->add_control('boldmcqspro_footer_copyright', array(
- 'label' => __('Copyright Text', 'boldmcqspro'),
- 'section' => 'boldmcqspro_footer',
- 'type' => 'textarea',
- ));
+    // Footer Logo
+    $wp_customize->add_setting('boldmcqspro_footer_logo', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'boldmcqspro_footer_logo', array(
+        'label' => __('Footer Logo', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'description' => __('Light version of your logo for dark footer background', 'boldmcqspro'),
+    )));
+
+    // Footer Description/About
+    $wp_customize->add_setting('boldmcqspro_footer_about', array(
+        'default' => 'BoldMCQs Pro is the leading platform for practicing high-quality MCQs across various computer science topics. Empowering students and professionals to excel in their careers.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_footer_about', array(
+        'label' => __('Footer About Text', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'textarea',
+    ));
+
+    // Show Newsletter in Footer
+    $wp_customize->add_setting('boldmcqspro_footer_show_newsletter', array(
+        'default' => true,
+        'sanitize_callback' => 'wp_validate_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_footer_show_newsletter', array(
+        'label' => __('Show Newsletter Form', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'checkbox',
+    ));
+
+    // Newsletter Title
+    $wp_customize->add_setting('boldmcqspro_footer_newsletter_title', array(
+        'default' => 'Newsletter',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_footer_newsletter_title', array(
+        'label' => __('Newsletter Title', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'text',
+    ));
+
+    // Newsletter Description
+    $wp_customize->add_setting('boldmcqspro_footer_newsletter_desc', array(
+        'default' => 'Get the latest MCQs and updates delivered to your inbox.',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_footer_newsletter_desc', array(
+        'label' => __('Newsletter Description', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'text',
+    ));
+
+    // Back to Top Button
+    $wp_customize->add_setting('boldmcqspro_back_to_top', array(
+        'default' => true,
+        'sanitize_callback' => 'wp_validate_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('boldmcqspro_back_to_top', array(
+        'label' => __('Enable Back to Top Button', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'checkbox',
+    ));
+
+    // Get all nav menus for dropdown
+    $menus = wp_get_nav_menus();
+    $menu_choices = array('' => __('Select Menu...', 'boldmcqspro'));
+    if (!empty($menus)) {
+        foreach ($menus as $menu) {
+            $menu_choices[$menu->term_id] = $menu->name;
+        }
+    }
+
+    // Footer Menu 1 (Column 2) Title
+    $wp_customize->add_setting('boldmcqspro_footer_menu_1_title', array(
+        'default' => 'Quick Links',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('boldmcqspro_footer_menu_1_title', array(
+        'label' => __('Column 2 Title', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'text',
+    ));
+
+    // Footer Menu 1 (Column 2) Select
+    $wp_customize->add_setting('boldmcqspro_footer_menu_1', array(
+        'default' => '',
+        'sanitize_callback' => 'absint',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('boldmcqspro_footer_menu_1', array(
+        'label' => __('Column 2 Menu', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'select',
+        'choices' => $menu_choices,
+    ));
+
+    // Footer Menu 2 (Column 3) Title
+    $wp_customize->add_setting('boldmcqspro_footer_menu_2_title', array(
+        'default' => 'Popular Categories',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('boldmcqspro_footer_menu_2_title', array(
+        'label' => __('Column 3 Title', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'text',
+    ));
+
+    // Footer Menu 2 (Column 3) Select
+    $wp_customize->add_setting('boldmcqspro_footer_menu_2', array(
+        'default' => '',
+        'sanitize_callback' => 'absint',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('boldmcqspro_footer_menu_2', array(
+        'label' => __('Column 3 Menu', 'boldmcqspro'),
+        'section' => 'boldmcqspro_footer',
+        'type' => 'select',
+        'choices' => $menu_choices,
+    ));
+
+    // =========================================================
+    // SECTION: Social Media Links  (Appearance panel)
+    // =========================================================
+    $wp_customize->add_section('boldmcqspro_social_links', array(
+        'title'       => __('Social Media Links', 'boldmcqspro'),
+        'description' => __('Enter your social profile URLs. Icons will appear in the footer.', 'boldmcqspro'),
+        'panel'       => 'boldmcqspro_panel_appearance',
+        'priority'    => 70,
+    ));
+
+    $social_platforms = array(
+        'facebook'  => __('Facebook', 'boldmcqspro'),
+        'twitter'   => __('Twitter / X', 'boldmcqspro'),
+        'instagram' => __('Instagram', 'boldmcqspro'),
+        'linkedin'  => __('LinkedIn', 'boldmcqspro'),
+        'youtube'   => __('YouTube', 'boldmcqspro'),
+        'whatsapp'  => __('WhatsApp', 'boldmcqspro'),
+    );
+
+    foreach ($social_platforms as $id => $label) {
+        $wp_customize->add_setting('boldmcqspro_social_' . $id, array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'refresh',
+        ));
+
+        $wp_customize->add_control('boldmcqspro_social_' . $id, array(
+            'label'   => $label,
+            'section' => 'boldmcqspro_social_links',
+            'type'    => 'url',
+        ));
+    }
 
     // =========================================================
     // SECTION: Theme Colors  (Appearance panel)

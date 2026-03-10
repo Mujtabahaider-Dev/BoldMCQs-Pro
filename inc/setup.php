@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // Theme setup
 function boldmcqspro_setup()
 {
@@ -13,17 +14,33 @@ add_action('after_setup_theme', 'boldmcqspro_setup');
 function boldmcqspro_register_mcq_cpt()
 {
     $labels = array(
-        'name' => 'MCQs',
-        'singular_name' => 'MCQ',
-        'add_new' => 'Add New',
-        'add_new_item' => 'Add New MCQ',
-        'edit_item' => 'Edit MCQ',
-        'new_item' => 'New MCQ',
-        'view_item' => 'View MCQ',
-        'search_items' => 'Search MCQs',
-        'not_found' => 'No MCQs found',
-        'not_found_in_trash' => 'No MCQs found in Trash',
-        'menu_name' => 'MCQs',
+        'name'               => _x( 'MCQs', 'Post Type General Name', 'boldmcqspro' ),
+        'singular_name'      => _x( 'MCQ', 'Post Type Singular Name', 'boldmcqspro' ),
+        'menu_name'          => __( 'MCQs', 'boldmcqspro' ),
+        'name_admin_bar'     => __( 'MCQ', 'boldmcqspro' ),
+        'archives'           => __( 'MCQ Archives', 'boldmcqspro' ),
+        'attributes'         => __( 'MCQ Attributes', 'boldmcqspro' ),
+        'parent_item_colon'  => __( 'Parent MCQ:', 'boldmcqspro' ),
+        'all_items'          => __( 'All MCQs', 'boldmcqspro' ),
+        'add_new_item'       => __( 'Add New MCQ', 'boldmcqspro' ),
+        'add_new'            => __( 'Add New', 'boldmcqspro' ),
+        'new_item'           => __( 'New MCQ', 'boldmcqspro' ),
+        'edit_item'          => __( 'Edit MCQ', 'boldmcqspro' ),
+        'update_item'        => __( 'Update MCQ', 'boldmcqspro' ),
+        'view_item'          => __( 'View MCQ', 'boldmcqspro' ),
+        'view_items'         => __( 'View MCQs', 'boldmcqspro' ),
+        'search_items'       => __( 'Search MCQ', 'boldmcqspro' ),
+        'not_found'          => __( 'Not found', 'boldmcqspro' ),
+        'not_found_in_trash' => __( 'Not found in Trash', 'boldmcqspro' ),
+        'featured_image'     => __( 'Featured Image', 'boldmcqspro' ),
+        'set_featured_image' => __( 'Set featured image', 'boldmcqspro' ),
+        'remove_featured_image' => __( 'Remove featured image', 'boldmcqspro' ),
+        'use_featured_image' => __( 'Use as featured image', 'boldmcqspro' ),
+        'insert_into_item'   => __( 'Insert into MCQ', 'boldmcqspro' ),
+        'uploaded_to_this_item' => __( 'Uploaded to this MCQ', 'boldmcqspro' ),
+        'items_list'         => __( 'MCQs list', 'boldmcqspro' ),
+        'items_list_navigation' => __( 'MCQs list navigation', 'boldmcqspro' ),
+        'filter_items_list'  => __( 'Filter MCQs list', 'boldmcqspro' ),
     );
     $args = array(
         'labels' => $labels,
@@ -45,13 +62,13 @@ add_action('init', 'boldmcqspro_register_mcq_cpt');
 function boldmcqspro_register_mcq_meta()
 {
     $fields = [
-        'mcq_option_a' => 'Option A',
-        'mcq_option_b' => 'Option B',
-        'mcq_option_c' => 'Option C',
-        'mcq_option_d' => 'Option D',
-        'mcq_correct_option' => 'Correct Option',
-        'mcq_explanation' => 'Explanation',
-        'mcq_difficulty' => 'Difficulty Level',
+        'mcq_option_a' => __( 'Option A', 'boldmcqspro' ),
+        'mcq_option_b' => __( 'Option B', 'boldmcqspro' ),
+        'mcq_option_c' => __( 'Option C', 'boldmcqspro' ),
+        'mcq_option_d' => __( 'Option D', 'boldmcqspro' ),
+        'mcq_correct_option' => __( 'Correct Option', 'boldmcqspro' ),
+        'mcq_explanation' => __( 'Explanation', 'boldmcqspro' ),
+        'mcq_difficulty' => __( 'Difficulty Level', 'boldmcqspro' ),
     ];
     foreach ($fields as $key => $label) {
         register_post_meta('mcqs', $key, [
@@ -72,7 +89,7 @@ function boldmcqspro_mcq_meta_box()
     if (!function_exists('acf_add_local_field_group')) {
         add_meta_box(
             'mcq_details',
-            'MCQ Details',
+            __( 'MCQ Details', 'boldmcqspro' ),
             'boldmcqspro_mcq_meta_box_callback',
             'mcqs',
             'normal',
@@ -85,13 +102,13 @@ add_action('add_meta_boxes', 'boldmcqspro_mcq_meta_box');
 function boldmcqspro_mcq_meta_box_callback($post)
 {
     $fields = [
-        'mcq_option_a' => 'Option A',
-        'mcq_option_b' => 'Option B',
-        'mcq_option_c' => 'Option C',
-        'mcq_option_d' => 'Option D',
-        'mcq_correct_option' => 'Correct Option',
-        'mcq_explanation' => 'Explanation',
-        'mcq_difficulty' => 'Difficulty Level',
+        'mcq_option_a' => __( 'Option A', 'boldmcqspro' ),
+        'mcq_option_b' => __( 'Option B', 'boldmcqspro' ),
+        'mcq_option_c' => __( 'Option C', 'boldmcqspro' ),
+        'mcq_option_d' => __( 'Option D', 'boldmcqspro' ),
+        'mcq_correct_option' => __( 'Correct Option', 'boldmcqspro' ),
+        'mcq_explanation' => __( 'Explanation', 'boldmcqspro' ),
+        'mcq_difficulty' => __( 'Difficulty Level', 'boldmcqspro' ),
     ];
     wp_nonce_field('boldmcqspro_mcq_meta_box', 'boldmcqspro_mcq_meta_box_nonce');
     echo '<table class="form-table">';
@@ -106,9 +123,13 @@ function boldmcqspro_mcq_meta_box_callback($post)
             echo '</select>';
         } elseif ($key === 'mcq_difficulty') {
             echo '<select name="' . esc_attr($key) . '" id="' . esc_attr($key) . '">';
-            $difficulties = ['easy' => 'Easy', 'medium' => 'Medium', 'hard' => 'Hard'];
+            $difficulties = [
+                'easy'   => __( 'Easy', 'boldmcqspro' ),
+                'medium' => __( 'Medium', 'boldmcqspro' ),
+                'hard'   => __( 'Hard', 'boldmcqspro' )
+            ];
             foreach ($difficulties as $val => $label_text) {
-                echo '<option value="' . $val . '"' . selected($value, $val, false) . '>' . $label_text . '</option>';
+                echo '<option value="' . esc_attr($val) . '"' . selected($value, $val, false) . '>' . esc_html($label_text) . '</option>';
             }
             echo '</select>';
         } elseif ($key === 'mcq_explanation') {
@@ -151,17 +172,26 @@ add_action('save_post_mcqs', 'boldmcqspro_save_mcq_meta_box');
 function boldmcqspro_register_mcq_taxonomy()
 {
     $labels = array(
-        'name' => 'MCQ Categories',
-        'singular_name' => 'MCQ Category',
-        'search_items' => 'Search MCQ Categories',
-        'all_items' => 'All MCQ Categories',
-        'parent_item' => 'Parent MCQ Category',
-        'parent_item_colon' => 'Parent MCQ Category:',
-        'edit_item' => 'Edit MCQ Category',
-        'update_item' => 'Update MCQ Category',
-        'add_new_item' => 'Add New MCQ Category',
-        'new_item_name' => 'New MCQ Category Name',
-        'menu_name' => 'MCQ Categories',
+        'name'                       => _x( 'MCQ Categories', 'Taxonomy General Name', 'boldmcqspro' ),
+        'singular_name'              => _x( 'MCQ Category', 'Taxonomy Singular Name', 'boldmcqspro' ),
+        'menu_name'                  => __( 'MCQ Categories', 'boldmcqspro' ),
+        'all_items'                  => __( 'All MCQ Categories', 'boldmcqspro' ),
+        'parent_item'                => __( 'Parent MCQ Category', 'boldmcqspro' ),
+        'parent_item_colon'          => __( 'Parent MCQ Category:', 'boldmcqspro' ),
+        'new_item_name'              => __( 'New MCQ Category Name', 'boldmcqspro' ),
+        'add_new_item'               => __( 'Add New MCQ Category', 'boldmcqspro' ),
+        'edit_item'                  => __( 'Edit MCQ Category', 'boldmcqspro' ),
+        'update_item'                => __( 'Update MCQ Category', 'boldmcqspro' ),
+        'view_item'                  => __( 'View MCQ Category', 'boldmcqspro' ),
+        'separate_items_with_commas' => __( 'Separate MCQ categories with commas', 'boldmcqspro' ),
+        'add_or_remove_items'        => __( 'Add or remove MCQ categories', 'boldmcqspro' ),
+        'choose_from_most_used'      => __( 'Choose from the most used', 'boldmcqspro' ),
+        'popular_items'              => __( 'Popular MCQ Categories', 'boldmcqspro' ),
+        'search_items'               => __( 'Search MCQ Categories', 'boldmcqspro' ),
+        'not_found'                  => __( 'Not Found', 'boldmcqspro' ),
+        'no_terms'                   => __( 'No MCQ categories', 'boldmcqspro' ),
+        'items_list'                 => __( 'MCQ categories list', 'boldmcqspro' ),
+        'items_list_navigation'      => __( 'MCQ categories list navigation', 'boldmcqspro' ),
     );
     $args = array(
         'hierarchical' => true,
@@ -180,15 +210,24 @@ add_action('init', 'boldmcqspro_register_mcq_taxonomy');
 function boldmcqspro_register_mcq_tag_taxonomy()
 {
     $labels = array(
-        'name' => 'MCQ Tags',
-        'singular_name' => 'MCQ Tag',
-        'search_items' => 'Search MCQ Tags',
-        'all_items' => 'All MCQ Tags',
-        'edit_item' => 'Edit MCQ Tag',
-        'update_item' => 'Update MCQ Tag',
-        'add_new_item' => 'Add New MCQ Tag',
-        'new_item_name' => 'New MCQ Tag Name',
-        'menu_name' => 'MCQ Tags',
+        'name'                       => _x( 'MCQ Tags', 'Taxonomy General Name', 'boldmcqspro' ),
+        'singular_name'              => _x( 'MCQ Tag', 'Taxonomy Singular Name', 'boldmcqspro' ),
+        'menu_name'                  => __( 'MCQ Tags', 'boldmcqspro' ),
+        'all_items'                  => __( 'All MCQ Tags', 'boldmcqspro' ),
+        'new_item_name'              => __( 'New MCQ Tag Name', 'boldmcqspro' ),
+        'add_new_item'               => __( 'Add New MCQ Tag', 'boldmcqspro' ),
+        'edit_item'                  => __( 'Edit MCQ Tag', 'boldmcqspro' ),
+        'update_item'                => __( 'Update MCQ Tag', 'boldmcqspro' ),
+        'view_item'                  => __( 'View MCQ Tag', 'boldmcqspro' ),
+        'separate_items_with_commas' => __( 'Separate MCQ tags with commas', 'boldmcqspro' ),
+        'add_or_remove_items'        => __( 'Add or remove MCQ tags', 'boldmcqspro' ),
+        'choose_from_most_used'      => __( 'Choose from the most used', 'boldmcqspro' ),
+        'popular_items'              => __( 'Popular MCQ Tags', 'boldmcqspro' ),
+        'search_items'               => __( 'Search MCQ Tags', 'boldmcqspro' ),
+        'not_found'                  => __( 'Not Found', 'boldmcqspro' ),
+        'no_terms'                   => __( 'No MCQ tags', 'boldmcqspro' ),
+        'items_list'                 => __( 'MCQ tags list', 'boldmcqspro' ),
+        'items_list_navigation'      => __( 'MCQ tags list navigation', 'boldmcqspro' ),
     );
     $args = array(
         'hierarchical' => false,

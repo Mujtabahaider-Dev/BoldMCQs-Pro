@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Header Buttons Helper Functions
  * Renders customizable CTA buttons and auth buttons

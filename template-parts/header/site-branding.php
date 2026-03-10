@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * Site Branding Template Part
  * Displays logo and/or site title based on customizer settings

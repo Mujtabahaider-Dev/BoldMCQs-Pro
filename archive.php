@@ -489,26 +489,25 @@
                                 <p class="text-sm text-gray-500 dark:text-gray-400"><?php echo $contributor->mcq_count; ?> MCQ<?php echo $contributor->mcq_count > 1 ? 's' : ''; ?></p>
                             </div>
                         </div>
-                <?php
+                        <?php 
                             endforeach;
                         else :
                         ?>
                         <div class="text-center py-4">
                             <p class="text-gray-500 dark:text-gray-400 text-sm">No contributors yet</p>
                             <?php if (current_user_can('publish_posts')) : ?>
-                                <a href="<?php echo admin_url('post-new.php?post_type=mcqs'); ?>" class="text-primary hover:text-primary/70 text-sm mt-2 inline-block">Be the first contributor!</a>
+                                <a href="<?php echo admin_url('post-new.php?post_type=mcqs'); ?>" class="text-primary hover:text-primary/70 text-sm mt-2 inline-block no-underline">Be the first contributor!</a>
                             <?php endif; ?>
                         </div>
                         <?php endif; ?>
-                        </div>
                     </div>
+                </div>
                 <?php endif; ?>
-
+                
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_categories_widget', true)) : ?>
                 <!-- Categories -->
                 <?php get_template_part('template-parts/sidebar/categories'); ?>
                 <?php endif; ?>
-
                 
             </div>
         </div>

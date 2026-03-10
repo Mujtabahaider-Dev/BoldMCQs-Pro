@@ -570,7 +570,7 @@ if (!empty($search_query)) {
                         <div class="text-center py-4">
                             <p class="text-gray-500 dark:text-gray-400 text-sm">No contributors yet</p>
                             <?php if (current_user_can('publish_posts')) : ?>
-                                <a href="<?php echo admin_url('post-new.php?post_type=mcqs'); ?>" class="text-primary hover:text-primary/70 text-sm mt-2 inline-block">Be the first contributor!</a>
+                                <a href="<?php echo admin_url('post-new.php?post_type=mcqs'); ?>" class="text-primary hover:text-primary/70 text-sm mt-2 inline-block no-underline">Be the first contributor!</a>
                             <?php endif; ?>
                         </div>
                         <?php endif; ?>

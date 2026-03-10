@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 // Register ACF field group for MCQ Details
 if (function_exists('acf_add_local_field_group')) {
     acf_add_local_field_group(array(

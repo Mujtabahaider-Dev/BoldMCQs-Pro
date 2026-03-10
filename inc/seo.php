@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /**
  * BoldMCQs Pro SEO Functions
  * Comprehensive SEO optimization for MCQs
