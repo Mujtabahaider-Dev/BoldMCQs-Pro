@@ -77,7 +77,7 @@ if (!empty($search_query)) {
             <!-- Search Header -->
             <div class="mb-6">
                 <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
+                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
                         <span class="text-white font-bold text-lg">🔍</span>
                     </div>
                     <div>
@@ -109,7 +109,7 @@ if (!empty($search_query)) {
                 <h2 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white"><?php echo esc_html(boldmcqspro_get_option('boldmcqspro_homepage_mcqs_title', 'Practice Questions')); ?></h2>
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_quiz_mode_btn', true)) : ?>
                 <button id="quizModeBtn"
-                    class="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-secondary to-primary text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base">
+                    class="w-full sm:w-auto px-4 sm:px-6 py-2 sm:py-3 bg-primary quiz-mode-btn text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base">
                     🎯 Start Quiz Mode
                 </button>
                 <?php endif; ?>
@@ -117,7 +117,7 @@ if (!empty($search_query)) {
             
             <!-- Quiz Mode Banner (Hidden by default) -->
             <div id="quizBanner"
-                class="hidden mb-6 p-4 bg-gradient-to-r from-accent/20 to-secondary/20 border-l-4 border-accent rounded-lg">
+                class="hidden mb-6 p-4 bg-accent/10 border-l-4 border-accent rounded-lg">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
                         <h3 class="font-semibold text-gray-900 dark:text-white">Quiz Mode Active</h3>
@@ -532,12 +532,12 @@ if (!empty($search_query)) {
                         );
                         
                         if (!empty($top_contributors)) :
-                            $gradient_classes = [
-                                'from-primary to-secondary',
-                                'from-accent to-red-500',
-                                'from-purple-500 to-pink-500',
-                                'from-green-500 to-blue-500',
-                                'from-indigo-500 to-purple-500'
+                            $bg_classes = [
+                                'bg-primary',
+                                'bg-secondary',
+                                'bg-accent',
+                                'bg-blue-600',
+                                'bg-purple-600'
                             ];
                             
                             foreach ($top_contributors as $index => $contributor) :
@@ -549,10 +549,10 @@ if (!empty($search_query)) {
                                     }
                                 }
                                 $initials = substr($initials, 0, 2); // Max 2 initials
-                                $gradient_class = $gradient_classes[$index % count($gradient_classes)];
+                                $bg_class = $bg_classes[$index % count($bg_classes)];
                         ?>
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-gradient-to-r <?php echo $gradient_class; ?> rounded-full flex items-center justify-center">
+                            <div class="w-10 h-10 <?php echo $bg_class; ?> rounded-full flex items-center justify-center">
                                 <span class="text-white font-semibold text-sm"><?php echo esc_html($initials); ?></span>
                             </div>
                             <div class="flex-1">
@@ -577,146 +577,7 @@ if (!empty($search_query)) {
 
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_categories_widget', true)) : ?>
                 <!-- Categories -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 border dark:border-gray-700">
-                    <h3 class="font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                        <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                        </svg>
-                        Categories
-                    </h3>
-                    <div class="space-y-3">
-                        <?php
-                        // Get MCQ categories with post count
-                        $mcq_categories = get_terms(array(
-                            'taxonomy' => 'mcq_category',
-                            'hide_empty' => true,
-                            'orderby' => 'count',
-                            'order' => 'DESC',
-                            'number' => 8
-                        ));
-                        
-                        if (!empty($mcq_categories) && !is_wp_error($mcq_categories)) :
-                            // Modern gradient backgrounds for categories
-                            $category_styles = [
-                                [
-                                    'bg' => 'bg-gradient-to-r from-blue-500 to-blue-600',
-                                    'hover' => 'hover:from-blue-600 hover:to-blue-700',
-                                    'icon' => '📚',
-                                    'border' => 'border-blue-200 dark:border-blue-800'
-                                ],
-                                [
-                                    'bg' => 'bg-gradient-to-r from-green-500 to-green-600',
-                                    'hover' => 'hover:from-green-600 hover:to-green-700',
-                                    'icon' => '🧪',
-                                    'border' => 'border-green-200 dark:border-green-800'
-                                ],
-                                [
-                                    'bg' => 'bg-gradient-to-r from-purple-500 to-purple-600',
-                                    'hover' => 'hover:from-purple-600 hover:to-purple-700',
-                                    'icon' => '🔬',
-                                    'border' => 'border-purple-200 dark:border-purple-800'
-                                ],
-                                [
-                                    'bg' => 'bg-gradient-to-r from-orange-500 to-orange-600',
-                                    'hover' => 'hover:from-orange-600 hover:to-orange-700',
-                                    'icon' => '📊',
-                                    'border' => 'border-orange-200 dark:border-orange-800'
-                                ],
-                                [
-                                    'bg' => 'bg-gradient-to-r from-pink-500 to-pink-600',
-                                    'hover' => 'hover:from-pink-600 hover:to-pink-700',
-                                    'icon' => '💻',
-                                    'border' => 'border-pink-200 dark:border-pink-800'
-                                ],
-                                [
-                                    'bg' => 'bg-gradient-to-r from-indigo-500 to-indigo-600',
-                                    'hover' => 'hover:from-indigo-600 hover:to-indigo-700',
-                                    'icon' => '🌍',
-                                    'border' => 'border-indigo-200 dark:border-indigo-800'
-                                ],
-                                [
-                                    'bg' => 'bg-gradient-to-r from-teal-500 to-teal-600',
-                                    'hover' => 'hover:from-teal-600 hover:to-teal-700',
-                                    'icon' => '⚡',
-                                    'border' => 'border-teal-200 dark:border-teal-800'
-                                ],
-                                [
-                                    'bg' => 'bg-gradient-to-r from-red-500 to-red-600',
-                                    'hover' => 'hover:from-red-600 hover:to-red-700',
-                                    'icon' => '🎯',
-                                    'border' => 'border-red-200 dark:border-red-800'
-                                ]
-                            ];
-                            
-                            foreach ($mcq_categories as $index => $category) :
-                                $style = $category_styles[$index % count($category_styles)];
-                                $count_class = $category->count > 50 ? 'bg-yellow-500' : ($category->count > 20 ? 'bg-green-500' : 'bg-gray-500');
-                        ?>
-                        <a href="<?php echo esc_url(get_term_link($category)); ?>" 
-                           class="block group">
-                            <div class="relative overflow-hidden rounded-xl border-2 <?php echo $style['border']; ?> transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
-                                <!-- Background with gradient -->
-                                <div class="absolute inset-0 <?php echo $style['bg']; ?> <?php echo $style['hover']; ?> transition-all duration-300 opacity-90 group-hover:opacity-100"></div>
-                                
-                                <!-- Content -->
-                                <div class="relative p-4 flex items-center justify-between">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="text-2xl"><?php echo $style['icon']; ?></div>
-                                        <div>
-                                            <h4 class="font-semibold text-white text-sm leading-tight">
-                                                <?php echo esc_html($category->name); ?>
-                                            </h4>
-                                            <p class="text-white/80 text-xs mt-1">
-                                                <?php echo $category->count; ?> question<?php echo $category->count > 1 ? 's' : ''; ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Count badge with animation -->
-                                    <div class="flex items-center space-x-2">
-                                        <div class="relative">
-                                            <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                                                <span class="text-white font-bold text-xs"><?php echo $category->count; ?></span>
-                                            </div>
-                                            <!-- Pulse animation for popular categories -->
-                                            <?php if ($category->count > 30) : ?>
-                                            <div class="absolute inset-0 w-8 h-8 bg-white/30 rounded-full animate-ping"></div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <svg class="w-4 h-4 text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                
-                                <!-- Hover overlay effect -->
-                                <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            </div>
-                        </a>
-                        <?php 
-                            endforeach;
-                        else :
-                        ?>
-                        <div class="text-center py-8">
-                            <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                                </svg>
-                            </div>
-                            <p class="text-gray-500 dark:text-gray-400 text-sm mb-2">No categories yet</p>
-                            <?php if (current_user_can('manage_categories')) : ?>
-                                <a href="<?php echo admin_url('edit-tags.php?taxonomy=mcq_category&post_type=mcqs'); ?>" 
-                                   class="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/80 transition-colors text-sm">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                    Add Categories
-                                </a>
-                            <?php endif; ?>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
+                <?php get_template_part('template-parts/sidebar/categories'); ?>
                 <?php endif; ?>
                 
             </div>

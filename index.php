@@ -12,7 +12,7 @@
                 <h1 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white"><?php echo esc_html(boldmcqspro_get_option('boldmcqspro_homepage_mcqs_title', 'Practice Questions')); ?></h1>
                 <?php if (boldmcqspro_get_option('boldmcqspro_show_quiz_mode_btn', true)) : ?>
                 <button id="quizModeBtn"
-                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-secondary to-primary text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base">
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-primary quiz-mode-btn text-white rounded-xl hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm sm:text-base">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
                     </svg>
@@ -22,7 +22,7 @@
             </div>
             <!-- Quiz Mode Banner (Hidden by default) -->
             <div id="quizBanner"
-                class="hidden mb-6 p-4 bg-gradient-to-r from-accent/20 to-secondary/20 border-l-4 border-accent rounded-lg">
+                class="hidden mb-6 p-4 bg-accent/10 border-l-4 border-accent rounded-lg">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
                         <h3 class="font-semibold text-gray-900 dark:text-white">Quiz Mode Active</h3>
@@ -388,12 +388,12 @@
                         );
                         
                         if (!empty($top_contributors)) :
-                            $gradient_classes = [
-                                'from-primary to-secondary',
-                                'from-accent to-red-500',
-                                'from-purple-500 to-pink-500',
-                                'from-green-500 to-blue-500',
-                                'from-indigo-500 to-purple-500'
+                            $bg_classes = [
+                                'bg-primary',
+                                'bg-secondary',
+                                'bg-accent',
+                                'bg-blue-600',
+                                'bg-purple-600'
                             ];
                             
                             foreach ($top_contributors as $index => $contributor) :
@@ -405,10 +405,10 @@
                                     }
                                 }
                                 $initials = substr($initials, 0, 2); // Max 2 initials
-                                $gradient_class = $gradient_classes[$index % count($gradient_classes)];
+                                $bg_class = $bg_classes[$index % count($bg_classes)];
                         ?>
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 bg-gradient-to-r <?php echo $gradient_class; ?> rounded-full flex items-center justify-center">
+                            <div class="w-10 h-10 <?php echo $bg_class; ?> rounded-full flex items-center justify-center">
                                 <span class="text-white font-semibold text-sm"><?php echo esc_html($initials); ?></span>
                             </div>
                             <div class="flex-1">

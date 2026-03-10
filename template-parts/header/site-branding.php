@@ -42,7 +42,7 @@ $title_style = 'font-size: ' . intval($title_size) . 'px; text-transform: ' . es
             >
         <?php elseif (!$show_text) : ?>
             <!-- Fallback: Show first letter as icon if no logo and no text -->
-            <div class="w-10 h-10 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
+            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <span class="text-white font-bold text-lg"><?php echo esc_html(substr(get_bloginfo('name'), 0, 1)); ?></span>
             </div>
         <?php endif; ?>
