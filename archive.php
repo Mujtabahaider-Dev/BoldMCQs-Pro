@@ -227,11 +227,14 @@
                     <div class="mt-4 pt-4 border-t dark:border-gray-600 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
                         <div class="flex flex-wrap items-center gap-2 sm:gap-4">
                             <?php if (boldmcqspro_get_option('boldmcqspro_show_author', true)) : ?>
-                            <span class="flex items-center">👤 <?php echo esc_html($author_name); ?></span>
+                            <span class="inline-flex items-center gap-1.5 py-1 px-2.5 bg-primary/5 dark:bg-primary/10 rounded-full border border-primary/10">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary/60"></span>
+                                <span class="text-xs font-bold text-primary/80 tracking-tight"><?php echo esc_html($author_name); ?></span>
+                            </span>
                             <?php endif; ?>
                             
                             <?php if (boldmcqspro_get_option('boldmcqspro_show_categories', true)) : ?>
-                            <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs">
+                            <span class="inline-flex items-center px-2.5 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-[10px] sm:text-xs font-semibold text-gray-500 dark:text-gray-400">
                                 <?php echo esc_html($category_name); ?>
                             </span>
                             <?php endif; ?>
